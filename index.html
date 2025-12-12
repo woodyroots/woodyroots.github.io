@@ -75,14 +75,14 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .audio-player, .message-box {
+        .audio-player, .message-box, .movie-section {
             flex-direction: column;
             text-align: center;
             align-items: center;
             cursor: default;
         }
         
-        .audio-player:hover, .message-box:hover {
+        .audio-player:hover, .message-box:hover, .movie-section:hover {
             transform: none;
             box-shadow: none;
             background-color: #1a1a1a;
@@ -98,7 +98,9 @@
             justify-content: center;
         }
         
-        .audio-player .link-logo, .message-box .link-logo {
+        .audio-player .link-logo, 
+        .message-box .link-logo,
+        .movie-section .link-logo {
             margin-right: 0;
             margin-bottom: 15px;
             width: 60px;
@@ -227,6 +229,47 @@
             display: block;
         }
         
+        /* Movie Link Styling */
+        .movie-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+            width: 100%;
+        }
+        
+        .movie-link {
+            display: block;
+            background-color: #2a2a2a;
+            color: #fff;
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            border: 1px solid #444;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        
+        .movie-link:hover {
+            background-color: #3a3a3a;
+            border-color: #666;
+            transform: translateY(-2px);
+        }
+        
+        .movie-info {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+            color: #aaa;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+        
+        .movie-info p {
+            margin: 5px 0;
+        }
+        
         .footer {
             margin-top: 60px;
             color: #666;
@@ -251,7 +294,9 @@
                 margin-right: 15px;
             }
             
-            .audio-player .link-logo, .message-box .link-logo {
+            .audio-player .link-logo, 
+            .message-box .link-logo,
+            .movie-section .link-logo {
                 width: 55px;
                 height: 55px;
             }
@@ -290,7 +335,9 @@
                 font-size: 0.85rem;
             }
             
-            .audio-player .link-logo, .message-box .link-logo {
+            .audio-player .link-logo, 
+            .message-box .link-logo,
+            .movie-section .link-logo {
                 width: 70px;
                 height: 70px;
             }
@@ -306,8 +353,9 @@
     <div class="site-title">woody's blog</div>
     
     <div class="container">
-        <!-- Links and audio player stay centered -->
+        <!-- Links and content stay centered -->
         <div class="links">
+            <!-- Last.fm Profile Link -->
             <a href="https://www.last.fm/user/shrimby" target="_blank" class="link-item">
                 <div class="link-logo">
                     <img src="images/lastfm.png" alt="Last.fm Logo">
@@ -318,6 +366,7 @@
                 </div>
             </a>
             
+            <!-- Letterboxd Profile Link -->
             <a href="https://letterboxd.com/1by/" target="_blank" class="link-item">
                 <div class="link-logo">
                     <img src="images/letterboxd.png" alt="Letterboxd Logo">
@@ -346,6 +395,17 @@
                 </div>
             </div>
             
+            <!-- Movie Link Section -->
+            <a href="https://drive.google.com/file/d/YOUR_FILE_ID/view" target="_blank" class="link-item movie-section">
+                <div class="link-logo">
+                    <div style="font-size: 2rem;">🎬</div>
+                </div>
+                <div class="link-content">
+                    <div class="link-title">Today's Movie</div>
+                    <div class="link-url">Click to watch → The Grand Budapest Hotel</div>
+                </div>
+            </a>
+            
             <!-- Formspree Message Box -->
             <div class="link-item message-box">
                 <div class="link-logo">
@@ -355,7 +415,7 @@
                     <div class="link-title">Send Anonymous Message</div>
                     
                     <!-- REPLACE "YOUR_FORM_ID" with your actual Formspree ID -->
-                    <form id="message-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="message-form">
+                    <form id="message-form" action="https://formspree.io/f/xzznyrar" method="POST" class="message-form">
                         <textarea 
                             name="message" 
                             placeholder="Type your anonymous message here..." 
@@ -400,7 +460,8 @@
                     
                     // Link logo fallback
                     if(!this.parentElement.parentElement.classList.contains('audio-player') && 
-                       !this.parentElement.parentElement.classList.contains('message-box')) {
+                       !this.parentElement.parentElement.classList.contains('message-box') &&
+                       !this.parentElement.parentElement.classList.contains('movie-section')) {
                         this.style.display = 'none';
                         this.parentElement.innerHTML = '<div style="font-size: 1.5rem;">🔗</div>';
                     }
