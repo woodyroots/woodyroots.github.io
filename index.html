@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>woody's corner</title>
+    <style>
+        /* Simple, clean, dark theme styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .name {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 60px;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+        
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .link-item {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+        
+        a.link-item:hover {
+            background-color: #252525;
+            border-color: #555;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .audio-player {
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+            cursor: default;
+        }
+        
+        .audio-player:hover {
+            transform: none;
+            box-shadow: none;
+            background-color: #1a1a1a;
+        }
+        
+        .link-logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 20px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .audio-player .link-logo {
+            margin-right: 0;
+            margin-bottom: 15px;
+            width: 60px;
+            height: 60px;
+        }
+        
+        /* FIXED: Separate rules for logos vs cover art */
+        .link-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Changed from 'cover' to 'contain' */
+            border-radius: 6px;
+        }
+        
+        /* Specific rule for home movies cover art */
+        .audio-player .link-logo img {
+            object-fit: cover; /* Keep 'cover' for the album art */
+            border-radius: 8px;
+        }
+        
+        .link-content {
+            flex-grow: 1;
+        }
+        
+        .link-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #e0e0e0;
+        }
+        
+        .link-url {
+            font-size: 0.9rem;
+            color: #aaa;
+            word-break: break-all;
+            margin-bottom: 10px;
+        }
+        
+        /* Audio player styling */
+        audio {
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+        
+        /* Style audio controls for dark theme */
+        audio::-webkit-media-controls-panel {
+            background-color: #2a2a2a;
+        }
+        
+        audio::-webkit-media-controls-current-time-display,
+        audio::-webkit-media-controls-time-remaining-display {
+            color: #f5f5f5;
+        }
+        
+        audio::-webkit-media-controls-play-button,
+        audio::-webkit-media-controls-volume-slider,
+        audio::-webkit-media-controls-mute-button {
+            filter: invert(0.8);
+        }
+        
+        .footer {
+            margin-top: 60px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .name {
+                font-size: 2.8rem;
+                margin-bottom: 50px;
+            }
+            
+            .link-item {
+                padding: 18px;
+            }
+            
+            .link-logo {
+                width: 45px;
+                height: 45px;
+                margin-right: 15px;
+            }
+            
+            .audio-player .link-logo {
+                width: 55px;
+                height: 55px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .name {
+                font-size: 2.2rem;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .link-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 25px 20px;
+            }
+            
+            .link-logo {
+                width: 60px;
+                height: 60px;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .link-title {
+                font-size: 1.4rem;
+            }
+            
+            .link-url {
+                font-size: 0.85rem;
+            }
+            
+            .audio-player .link-logo {
+                width: 70px;
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="name">woody</h1>
+        
+        <div class="links">
+            <a href="https://www.last.fm/user/shrimby" target="_blank" class="link-item">
+                <div class="link-logo">
+                    <img src="images/lastfm.png" alt="Last.fm Logo">
+                </div>
+                <div class="link-content">
+                    <div class="link-title">last.fm</div>
+                    <div class="link-url">https://www.last.fm/user/shrimby</div>
+                </div>
+            </a>
+            
+            <a href="https://letterboxd.com/1by/" target="_blank" class="link-item">
+                <div class="link-logo">
+                    <img src="images/letterboxd.png" alt="Letterboxd Logo">
+                </div>
+                <div class="link-content">
+                    <div class="link-title">letterboxd</div>
+                    <div class="link-url">https://letterboxd.com/1by/</div>
+                </div>
+            </a>
+            
+            <!-- MP3 Player Section -->
+            <div class="link-item audio-player">
+                <div class="link-logo">
+                    <!-- Home Movies image -->
+                    <img src="images/home movies.jpg" alt="Home Movies Cover">
+                </div>
+                <div class="link-content">
+                    <div class="link-title">Brendon's Camera</div>
+                    <div class="link-url">Home Movies Bonus CD-51</div>
+                    
+                    <!-- Audio Player -->
+                    <audio controls>
+                        <source src="music/Home Movies Bonus CD-51-Brendon's Camera.MP3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <!-- Add more links or a description here later -->
+        </div>
+    </div>
+    
+    <script>
+        // Simple image error handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.link-logo img');
+            
+            images.forEach(img => {
+                img.onerror = function() {
+                    console.log('Image failed to load: ' + this.src);
+                    // Replace with fallback emoji if image fails
+                    this.style.display = 'none';
+                    const parent = this.parentElement;
+                    if(parent.classList.contains('audio-player')) {
+                        parent.innerHTML = '<div style="font-size: 2rem;">🎵</div>';
+                    }
+                };
+            });
+            
+            // Audio player error handling
+            const audioPlayer = document.querySelector('audio');
+            if(audioPlayer) {
+                audioPlayer.addEventListener('error', function(e) {
+                    console.error('Audio error:', e.target.error);
+                    const source = document.querySelector('audio source');
+                    if(source) {
+                        console.error('Failed to load:', source.src);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
