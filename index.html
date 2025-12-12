@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>plastic chair world</title>
+    <!-- TAB TITLE (browser tab text) -->
+    <title>woody's blog</title>
+    
     <!-- TAB LOGO (FAVICON) -->
     <link rel="icon" href="images/lizard.png" type="image/png">
     
@@ -25,6 +27,18 @@
             align-items: center;
             padding: 20px;
             line-height: 1.6;
+            position: relative;
+        }
+        
+        /* Site title in top-left corner */
+        .site-title {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #ffffff;
+            z-index: 10;
         }
         
         .container {
@@ -32,14 +46,6 @@
             width: 100%;
             text-align: center;
             padding: 40px 20px;
-        }
-        
-        .site-name {
-            font-size: 3.5rem;
-            font-weight: 300;
-            margin-bottom: 60px;
-            letter-spacing: 1px;
-            color: #ffffff;
         }
         
         .links {
@@ -162,9 +168,10 @@
         
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .site-name {
-                font-size: 2.8rem;
-                margin-bottom: 50px;
+            .site-title {
+                font-size: 1.6rem;
+                top: 20px;
+                left: 20px;
             }
             
             .link-item {
@@ -184,8 +191,10 @@
         }
         
         @media (max-width: 480px) {
-            .site-name {
-                font-size: 2.2rem;
+            .site-title {
+                font-size: 1.4rem;
+                top: 15px;
+                left: 15px;
             }
             
             .container {
@@ -222,9 +231,11 @@
     </style>
 </head>
 <body>
+    <!-- Site title in top-left corner -->
+    <div class="site-title">plastic chair world</div>
+    
     <div class="container">
-        <h1 class="site-name">plastic chair world</h1>
-        
+        <!-- Links and audio player stay centered -->
         <div class="links">
             <a href="https://www.last.fm/user/shrimby" target="_blank" class="link-item">
                 <div class="link-logo">
