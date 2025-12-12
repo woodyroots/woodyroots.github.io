@@ -75,14 +75,14 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .audio-player {
+        .audio-player, .message-box {
             flex-direction: column;
             text-align: center;
             align-items: center;
             cursor: default;
         }
         
-        .audio-player:hover {
+        .audio-player:hover, .message-box:hover {
             transform: none;
             box-shadow: none;
             background-color: #1a1a1a;
@@ -98,7 +98,7 @@
             justify-content: center;
         }
         
-        .audio-player .link-logo {
+        .audio-player .link-logo, .message-box .link-logo {
             margin-right: 0;
             margin-bottom: 15px;
             width: 60px;
@@ -160,6 +160,80 @@
             filter: invert(0.8);
         }
         
+        /* Message Form Styles */
+        .message-form {
+            width: 100%;
+            margin-top: 15px;
+        }
+        
+        .message-textarea {
+            width: 100%;
+            padding: 15px;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #f5f5f5;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 15px;
+            min-height: 120px;
+        }
+        
+        .message-textarea:focus {
+            outline: none;
+            border-color: #666;
+            box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+        }
+        
+        .message-textarea::placeholder {
+            color: #777;
+        }
+        
+        .submit-btn {
+            background-color: #3a3a3a;
+            color: white;
+            border: 1px solid #555;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background-color: #4a4a4a;
+            border-color: #666;
+        }
+        
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .privacy-note {
+            margin-top: 15px;
+            color: #888;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        /* Success message styling */
+        .success-message {
+            display: none;
+            background-color: #1a3a1a;
+            border: 1px solid #2a5a2a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #aaffaa;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
         .footer {
             margin-top: 60px;
             color: #666;
@@ -184,7 +258,7 @@
                 margin-right: 15px;
             }
             
-            .audio-player .link-logo {
+            .audio-player .link-logo, .message-box .link-logo {
                 width: 55px;
                 height: 55px;
             }
@@ -223,9 +297,13 @@
                 font-size: 0.85rem;
             }
             
-            .audio-player .link-logo {
+            .audio-player .link-logo, .message-box .link-logo {
                 width: 70px;
                 height: 70px;
+            }
+            
+            .message-textarea {
+                min-height: 100px;
             }
         }
     </style>
@@ -274,6 +352,48 @@
                     </audio>
                 </div>
             </div>
+            
+            <!-- Formspree Message Box -->
+            <div class="link-item message-box">
+                <div class="link-logo">
+                    <div style="font-size: 2rem;">✉️</div>
+                </div>
+                <div class="link-content">
+                    <div class="link-title">Send Anonymous Message</div>
+                    <div class="link-url">Completely private - no tracking</div>
+                    
+                    <!-- REPLACE "YOUR_FORM_ID" with your actual Formspree ID -->
+                    <form id="message-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="message-form">
+                        <textarea 
+                            name="message" 
+                            placeholder="Type your anonymous message here..." 
+                            required
+                            rows="4"
+                            class="message-textarea"
+                        ></textarea>
+                        
+                        <!-- Honeypot field for spam prevention -->
+                        <input type="text" name="_gotcha" style="display:none;">
+                        
+                        <!-- Redirect after submission -->
+                        <input type="hidden" name="_next" value="#success">
+                        
+                        <button type="submit" class="submit-btn">
+                            Send Anonymously
+                        </button>
+                    </form>
+                    
+                    <!-- Success message (hidden by default) -->
+                    <div id="success-message" class="success-message">
+                        <h3>✅ Message Sent!</h3>
+                        <p>Your anonymous message has been delivered.</p>
+                    </div>
+                    
+                    <p class="privacy-note">
+                        <small>✅ No email required ✅ No tracking ✅ Messages go to site owner</small>
+                    </p>
+                </div>
+            </div>
         </div>
         
         <div class="footer">
@@ -291,7 +411,8 @@
                     console.log('Image failed to load: ' + this.src);
                     
                     // Link logo fallback
-                    if(!this.parentElement.parentElement.classList.contains('audio-player')) {
+                    if(!this.parentElement.parentElement.classList.contains('audio-player') && 
+                       !this.parentElement.parentElement.classList.contains('message-box')) {
                         this.style.display = 'none';
                         this.parentElement.innerHTML = '<div style="font-size: 1.5rem;">🔗</div>';
                     }
@@ -314,6 +435,62 @@
                         console.error('Failed to load:', source.src);
                     }
                 });
+            }
+            
+            // Form submission handling
+            const messageForm = document.getElementById('message-form');
+            const successMessage = document.getElementById('success-message');
+            
+            if(messageForm) {
+                messageForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('.submit-btn');
+                    const originalText = submitBtn.textContent;
+                    
+                    // Show loading state
+                    submitBtn.textContent = 'Sending...';
+                    submitBtn.disabled = true;
+                    
+                    try {
+                        const formData = new FormData(this);
+                        const response = await fetch(this.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                        
+                        if(response.ok) {
+                            // Show success message
+                            successMessage.classList.add('show');
+                            messageForm.reset();
+                            
+                            // Hide success message after 5 seconds
+                            setTimeout(() => {
+                                successMessage.classList.remove('show');
+                            }, 5000);
+                        } else {
+                            alert('Failed to send message. Please try again.');
+                        }
+                    } catch(error) {
+                        console.error('Form submission error:', error);
+                        alert('Failed to send message. Please try again.');
+                    } finally {
+                        // Restore button
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+            
+            // Show success message if URL hash is #success
+            if(window.location.hash === '#success') {
+                successMessage.classList.add('show');
+                
+                // Remove hash from URL without reloading
+                history.replaceState(null, null, ' ');
             }
         });
     </script>
