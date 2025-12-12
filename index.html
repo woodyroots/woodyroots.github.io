@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>woody roots</title>
+    <title>plastic chair world</title>
+    <!-- TAB LOGO (FAVICON) -->
+    <link rel="icon" href="images/lizard.png" type="image/png">
+    
     <style>
         /* Simple, clean, dark theme styling */
         * {
@@ -31,7 +34,7 @@
             padding: 40px 20px;
         }
         
-        .name {
+        .site-name {
             font-size: 3.5rem;
             font-weight: 300;
             margin-bottom: 60px;
@@ -96,17 +99,17 @@
             height: 60px;
         }
         
-        /* FIXED: Separate rules for logos vs cover art */
+        /* Logos vs cover art */
         .link-logo img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Changed from 'cover' to 'contain' */
+            object-fit: contain;
             border-radius: 6px;
         }
         
         /* Specific rule for home movies cover art */
         .audio-player .link-logo img {
-            object-fit: cover; /* Keep 'cover' for the album art */
+            object-fit: cover;
             border-radius: 8px;
         }
         
@@ -159,7 +162,7 @@
         
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .name {
+            .site-name {
                 font-size: 2.8rem;
                 margin-bottom: 50px;
             }
@@ -181,7 +184,7 @@
         }
         
         @media (max-width: 480px) {
-            .name {
+            .site-name {
                 font-size: 2.2rem;
             }
             
@@ -220,7 +223,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="name">woody</h1>
+        <h1 class="site-name">plastic chair world</h1>
         
         <div class="links">
             <a href="https://www.last.fm/user/shrimby" target="_blank" class="link-item">
@@ -268,18 +271,24 @@
     </div>
     
     <script>
-        // Simple image error handling
+        // Image error handling
         document.addEventListener('DOMContentLoaded', function() {
             const images = document.querySelectorAll('.link-logo img');
             
             images.forEach(img => {
                 img.onerror = function() {
                     console.log('Image failed to load: ' + this.src);
-                    // Replace with fallback emoji if image fails
-                    this.style.display = 'none';
-                    const parent = this.parentElement;
-                    if(parent.classList.contains('audio-player')) {
-                        parent.innerHTML = '<div style="font-size: 2rem;">🎵</div>';
+                    
+                    // Link logo fallback
+                    if(!this.parentElement.parentElement.classList.contains('audio-player')) {
+                        this.style.display = 'none';
+                        this.parentElement.innerHTML = '<div style="font-size: 1.5rem;">🔗</div>';
+                    }
+                    
+                    // Audio player cover fallback
+                    if(this.parentElement.parentElement.classList.contains('audio-player')) {
+                        this.style.display = 'none';
+                        this.parentElement.innerHTML = '<div style="font-size: 2rem;">🎵</div>';
                     }
                 };
             });
@@ -298,5 +307,4 @@
         });
     </script>
 </body>
-
 </html>
