@@ -57,6 +57,14 @@
             flex-direction: column;
         }
         
+        .bottom-sections {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
         .link-item {
             background-color: #1a1a1a;
             border: 1px solid #333;
@@ -78,16 +86,14 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .music-player-full {
+        .music-player-full, .message-box, .movie-section {
             flex-direction: column;
             text-align: center;
             align-items: center;
             cursor: default;
-            height: 100%;
-            min-height: 100%;
         }
         
-        .music-player-full:hover {
+        .music-player-full:hover, .message-box:hover, .movie-section:hover {
             transform: none;
             box-shadow: none;
             background-color: #1a1a1a;
@@ -103,11 +109,13 @@
             justify-content: center;
         }
         
-        .music-player-full .link-logo {
+        .music-player-full .link-logo, 
+        .message-box .link-logo,
+        .movie-section .link-logo {
             margin-right: 0;
             margin-bottom: 15px;
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
         }
         
         .link-logo img {
@@ -161,15 +169,71 @@
             filter: invert(0.8);
         }
         
-        .music-player-full .link-content {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            justify-content: space-between;
+        /* Message Form Styles */
+        .message-form {
+            width: 100%;
+            margin-top: 15px;
         }
         
-        .music-info {
-            flex-grow: 1;
+        .message-textarea {
+            width: 100%;
+            padding: 15px;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #f5f5f5;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 15px;
+            min-height: 120px;
+        }
+        
+        .message-textarea:focus {
+            outline: none;
+            border-color: #666;
+            box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+        }
+        
+        .message-textarea::placeholder {
+            color: #777;
+        }
+        
+        .submit-btn {
+            background-color: #3a3a3a;
+            color: white;
+            border: 1px solid #555;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background-color: #4a4a4a;
+            border-color: #666;
+        }
+        
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+        
+        /* Success message styling */
+        .success-message {
+            display: none;
+            background-color: #1a3a1a;
+            border: 1px solid #2a5a2a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #aaffaa;
+        }
+        
+        .success-message.show {
+            display: block;
         }
         
         .footer {
@@ -177,7 +241,6 @@
             color: #666;
             font-size: 0.9rem;
             text-align: center;
-            grid-column: 1 / -1;
         }
         
         @media (max-width: 768px) {
@@ -202,9 +265,11 @@
                 margin-right: 15px;
             }
             
-            .music-player-full .link-logo {
-                width: 70px;
-                height: 70px;
+            .music-player-full .link-logo, 
+            .message-box .link-logo,
+            .movie-section .link-logo {
+                width: 55px;
+                height: 55px;
             }
             
             .music-player-full {
@@ -245,9 +310,15 @@
                 font-size: 0.85rem;
             }
             
-            .music-player-full .link-logo {
-                width: 80px;
-                height: 80px;
+            .music-player-full .link-logo, 
+            .message-box .link-logo,
+            .movie-section .link-logo {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .message-textarea {
+                min-height: 100px;
             }
         }
     </style>
@@ -257,6 +328,7 @@
     
     <div class="container">
         <div class="main-grid">
+            <!-- Left Column: Last.fm & Letterboxd -->
             <div class="links-column">
                 <a href="https://www.last.fm/user/shrimby" target="_blank" class="link-item">
                     <div class="link-logo">
@@ -279,20 +351,66 @@
                 </a>
             </div>
             
+            <!-- Right Column: Music Player -->
             <div class="music-column">
                 <div class="link-item music-player-full">
                     <div class="link-logo">
                         <img src="images/home movies.jpg" alt="Home Movies Cover">
                     </div>
                     <div class="link-content">
-                        <div class="music-info">
-                            <div class="link-title">Brendon's Camera</div>
-                            <div class="link-url">Home Movies Bonus CD-51</div>
+                        <div class="link-title">Brendon's Camera</div>
+                        <div class="link-url">Home Movies Bonus CD-51</div>
+                        
+                        <audio controls>
+                            <source src="music/Home Movies Bonus CD-51-Brendon's Camera.MP3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Sections: Movie Link & Message Box -->
+            <div class="bottom-sections">
+                <!-- Movie Link Section -->
+                <a href="https://drive.google.com/file/d/https://drive.google.com/file/d/1kiloXXQf_wXbBByNwWrw4nJNYfWYjK0J/view" target="_blank" class="link-item movie-section">
+                    <div class="link-logo">
+                        <div style="font-size: 2rem;">🎬</div>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">Today's Movie</div>
+                        <div class="link-url">Click to watch → The Grand Budapest Hotel</div>
+                    </div>
+                </a>
+                
+                <!-- Message Box Section -->
+                <div class="link-item message-box">
+                    <div class="link-logo">
+                        <div style="font-size: 2rem;">✉️</div>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">Send Anonymous Message</div>
+                        
+                        <!-- REPLACE "YOUR_FORM_ID" with your actual Formspree ID -->
+                        <form id="message-form" action="https://formspree.io/f/xzznyrar" method="POST" class="message-form">
+                            <textarea 
+                                name="message" 
+                                placeholder="Type your anonymous message here..." 
+                                required
+                                rows="4"
+                                class="message-textarea"
+                            ></textarea>
                             
-                            <audio controls>
-                                <source src="music/Home Movies Bonus CD-51-Brendon's Camera.MP3" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
+                            <input type="text" name="_gotcha" style="display:none;">
+                            <input type="hidden" name="_next" value="#success">
+                            
+                            <button type="submit" class="submit-btn">
+                                Send Anonymously
+                            </button>
+                        </form>
+                        
+                        <div id="success-message" class="success-message">
+                            <h3>✅ Message Sent!</h3>
+                            <p>Your anonymous message has been delivered.</p>
                         </div>
                     </div>
                 </div>
@@ -310,7 +428,9 @@
                 img.onerror = function() {
                     console.log('Image failed to load: ' + this.src);
                     
-                    if(!this.parentElement.parentElement.classList.contains('music-player-full')) {
+                    if(!this.parentElement.parentElement.classList.contains('music-player-full') && 
+                       !this.parentElement.parentElement.classList.contains('message-box') &&
+                       !this.parentElement.parentElement.classList.contains('movie-section')) {
                         this.style.display = 'none';
                         this.parentElement.innerHTML = '<div style="font-size: 1.5rem;">🔗</div>';
                     }
@@ -345,9 +465,56 @@
                 }
             }
             
+            const messageForm = document.getElementById('message-form');
+            const successMessage = document.getElementById('success-message');
+            
+            if(messageForm) {
+                messageForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('.submit-btn');
+                    const originalText = submitBtn.textContent;
+                    
+                    submitBtn.textContent = 'Sending...';
+                    submitBtn.disabled = true;
+                    
+                    try {
+                        const formData = new FormData(this);
+                        const response = await fetch(this.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                        
+                        if(response.ok) {
+                            successMessage.classList.add('show');
+                            messageForm.reset();
+                            
+                            setTimeout(() => {
+                                successMessage.classList.remove('show');
+                            }, 5000);
+                        } else {
+                            alert('Failed to send message. Please try again.');
+                        }
+                    } catch(error) {
+                        console.error('Form submission error:', error);
+                        alert('Failed to send message. Please try again.');
+                    } finally {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+            
+            if(window.location.hash === '#success') {
+                successMessage.classList.add('show');
+                history.replaceState(null, null, ' ');
+            }
+            
             window.addEventListener('load', adjustMusicPlayerHeight);
             window.addEventListener('resize', adjustMusicPlayerHeight);
-            
             setTimeout(adjustMusicPlayerHeight, 100);
         });
     </script>
