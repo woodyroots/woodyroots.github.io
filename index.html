@@ -110,8 +110,8 @@
             border: 1px solid #333;
             border-radius: 10px;
             padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 20px;
             height: 100%;
             min-height: 220px;
@@ -127,6 +127,7 @@
             transition: all 0.3s ease;
             padding: 15px;
             border-radius: 8px;
+            flex: 1;
         }
         
         .social-service:hover {
@@ -370,10 +371,9 @@
             }
             
             .combined-social {
-                grid-template-columns: 1fr;
-                gap: 15px;
                 padding: 15px;
                 min-height: auto;
+                gap: 15px;
             }
             
             .social-service {
@@ -449,17 +449,10 @@
             }
         }
         
-        /* Divider between social services on desktop */
+        /* Divider between social services */
         .social-service:first-child {
-            border-right: 1px solid #333;
-        }
-        
-        @media (max-width: 768px) {
-            .social-service:first-child {
-                border-right: none;
-                border-bottom: 1px solid #333;
-                padding-bottom: 20px;
-            }
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
         }
     </style>
 </head>
@@ -468,19 +461,10 @@
     
     <div class="container">
         <div class="main-grid">
-            <!-- Combined Social Box: Last.fm & Letterboxd -->
+            <!-- Combined Social Box: Letterboxd (top) & Last.fm (bottom) -->
             <div class="social-box">
                 <div class="combined-social">
-                    <a href="https://www.last.fm/user/shrimby" target="_blank" class="social-service">
-                        <div class="social-logo-title">
-                            <div class="social-logo">
-                                <img src="images/lastfm.png" alt="Last.fm Logo">
-                            </div>
-                            <div class="social-title">last.fm</div>
-                        </div>
-                        <div class="social-url">https://www.last.fm/user/shrimby</div>
-                    </a>
-                    
+                    <!-- Letterboxd on TOP -->
                     <a href="https://letterboxd.com/1by/" target="_blank" class="social-service">
                         <div class="social-logo-title">
                             <div class="social-logo">
@@ -489,6 +473,17 @@
                             <div class="social-title">letterboxd</div>
                         </div>
                         <div class="social-url">https://letterboxd.com/1by/</div>
+                    </a>
+                    
+                    <!-- Last.fm on BOTTOM -->
+                    <a href="https://www.last.fm/user/shrimby" target="_blank" class="social-service">
+                        <div class="social-logo-title">
+                            <div class="social-logo">
+                                <img src="images/lastfm.png" alt="Last.fm Logo">
+                            </div>
+                            <div class="social-title">last.fm</div>
+                        </div>
+                        <div class="social-url">https://www.last.fm/user/shrimby</div>
                     </a>
                 </div>
             </div>
