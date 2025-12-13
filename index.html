@@ -6,7 +6,6 @@
     <title>plastic chair world</title>
     <link rel="icon" href="images/lizard.png" type="image/png">
     <style>
-        /* Simple, clean, dark theme styling */
         * {
             margin: 0;
             padding: 0;
@@ -23,7 +22,6 @@
             position: relative;
         }
         
-        /* Site title in top-left corner */
         .site-title {
             position: absolute;
             top: 25px;
@@ -41,7 +39,6 @@
             padding: 0 20px;
         }
         
-        /* Two-column layout */
         .main-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -49,14 +46,12 @@
             margin-top: 40px;
         }
         
-        /* Left column - stacked links */
         .links-column {
             display: flex;
             flex-direction: column;
             gap: 25px;
         }
         
-        /* Right column - music player */
         .music-column {
             display: flex;
             flex-direction: column;
@@ -83,7 +78,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        /* Music player takes full height of column */
         .music-player-full {
             flex-direction: column;
             text-align: center;
@@ -116,7 +110,6 @@
             height: 80px;
         }
         
-        /* Logos vs cover art */
         .link-logo img {
             width: 100%;
             height: 100%;
@@ -124,7 +117,6 @@
             border-radius: 6px;
         }
         
-        /* Specific rule for home movies cover art */
         .music-player-full .link-logo img {
             object-fit: cover;
             border-radius: 8px;
@@ -148,14 +140,12 @@
             margin-bottom: 10px;
         }
         
-        /* Audio player styling - bigger for the large column */
         .music-player-full audio {
             width: 100%;
             margin-top: 15px;
             border-radius: 8px;
         }
         
-        /* Style audio controls for dark theme */
         audio::-webkit-media-controls-panel {
             background-color: #2a2a2a;
         }
@@ -171,7 +161,6 @@
             filter: invert(0.8);
         }
         
-        /* Make music player content fill available space */
         .music-player-full .link-content {
             display: flex;
             flex-direction: column;
@@ -191,7 +180,6 @@
             grid-column: 1 / -1;
         }
         
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .site-title {
                 font-size: 1.6rem;
@@ -265,15 +253,11 @@
     </style>
 </head>
 <body>
-    <!-- Site title in top-left corner -->
     <div class="site-title">woody's blog</div>
     
     <div class="container">
-        <!-- Two-column layout -->
         <div class="main-grid">
-            <!-- Left column - Stacked links -->
             <div class="links-column">
-                <!-- Last.fm Profile Link -->
                 <a href="https://www.last.fm/user/shrimby" target="_blank" class="link-item">
                     <div class="link-logo">
                         <img src="images/lastfm.png" alt="Last.fm Logo">
@@ -284,7 +268,6 @@
                     </div>
                 </a>
                 
-                <!-- Letterboxd Profile Link -->
                 <a href="https://letterboxd.com/1by/" target="_blank" class="link-item">
                     <div class="link-logo">
                         <img src="images/letterboxd.png" alt="Letterboxd Logo">
@@ -296,7 +279,6 @@
                 </a>
             </div>
             
-            <!-- Right column - Full height music player -->
             <div class="music-column">
                 <div class="link-item music-player-full">
                     <div class="link-logo">
@@ -307,7 +289,6 @@
                             <div class="link-title">Brendon's Camera</div>
                             <div class="link-url">Home Movies Bonus CD-51</div>
                             
-                            <!-- Audio Player -->
                             <audio controls>
                                 <source src="music/Home Movies Bonus CD-51-Brendon's Camera.MP3" type="audio/mpeg">
                                 Your browser does not support the audio element.
@@ -318,13 +299,10 @@
             </div>
         </div>
         
-        <div class="footer">
-            <!-- Optional: Add something here later -->
-        </div>
+        <div class="footer"></div>
     </div>
     
     <script>
-        // Image error handling
         document.addEventListener('DOMContentLoaded', function() {
             const images = document.querySelectorAll('.link-logo img');
             
@@ -332,13 +310,11 @@
                 img.onerror = function() {
                     console.log('Image failed to load: ' + this.src);
                     
-                    // Link logo fallback
                     if(!this.parentElement.parentElement.classList.contains('music-player-full')) {
                         this.style.display = 'none';
                         this.parentElement.innerHTML = '<div style="font-size: 1.5rem;">🔗</div>';
                     }
                     
-                    // Music player cover fallback
                     if(this.parentElement.parentElement.classList.contains('music-player-full')) {
                         this.style.display = 'none';
                         this.parentElement.innerHTML = '<div style="font-size: 2.5rem;">🎵</div>';
@@ -346,7 +322,6 @@
                 };
             });
             
-            // Audio player error handling
             const audioPlayer = document.querySelector('audio');
             if(audioPlayer) {
                 audioPlayer.addEventListener('error', function(e) {
@@ -358,7 +333,6 @@
                 });
             }
             
-            // Make the music player column match the height of the links column
             function adjustMusicPlayerHeight() {
                 const linksColumn = document.querySelector('.links-column');
                 const musicColumn = document.querySelector('.music-column');
@@ -371,11 +345,9 @@
                 }
             }
             
-            // Adjust on load and resize
             window.addEventListener('load', adjustMusicPlayerHeight);
             window.addEventListener('resize', adjustMusicPlayerHeight);
             
-            // Initial adjustment
             setTimeout(adjustMusicPlayerHeight, 100);
         });
     </script>
