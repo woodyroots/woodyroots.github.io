@@ -6,847 +6,503 @@
     <title>my favorite internet pieces | plastic chair world</title>
     <link rel="icon" href="images/lizard.png" type="image/png">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Courier New', monospace;
+        /* ... (keep all your existing CSS) ... */
+        
+        /* Add these new styles for the song manager */
+        .song-manager {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #444;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            display: none;
         }
         
-        body {
-            background-color: #0a0a0a;
-            color: #e8e8e8;
-            min-height: 100vh;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(120, 120, 120, 0.03) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(120, 120, 120, 0.03) 0%, transparent 20%);
+        .song-manager.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
         }
         
-        /* Terminal-like cursor effect */
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 20px;
-            background-color: #e8e8e8;
-            animation: blink 1s infinite;
-            vertical-align: middle;
-            margin-left: 5px;
-        }
-        
-        /* Navigation */
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 15px 30px;
+        .manager-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid #333;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #444;
         }
         
-        .site-title {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            color: #e8e8e8;
-            text-transform: lowercase;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-        
-        .nav-link {
-            color: #aaa;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-        
-        .nav-link:hover {
+        .manager-title {
+            font-size: 1.4rem;
             color: #e8e8e8;
         }
         
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background-color: #e8e8e8;
-            transition: width 0.3s ease;
+        .close-manager {
+            background: #444;
+            color: #e8e8e8;
+            border: 1px solid #666;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
         }
         
-        .nav-link:hover::after {
-            width: 100%;
+        .close-manager:hover {
+            background: #555;
         }
         
-        /* Main Container */
-        .main-container {
-            max-width: 1200px;
-            margin: 80px auto 40px;
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
+        .add-song-form {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
         }
         
-        /* Header Section */
-        .header-section {
-            text-align: center;
-            padding: 40px 0;
-            border-bottom: 1px solid #333;
+        .url-input {
+            padding: 12px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #f5f5f5;
+            font-family: inherit;
+        }
+        
+        .url-input:focus {
+            outline: none;
+            border-color: #666;
+        }
+        
+        .add-btn {
+            background: #3a3a3a;
+            color: white;
+            border: 1px solid #555;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        
+        .add-btn:hover {
+            background: #4a4a4a;
+        }
+        
+        .song-list {
+            max-height: 300px;
+            overflow-y: auto;
             margin-bottom: 20px;
         }
         
-        .page-title {
-            font-size: 2.5rem;
-            color: #e8e8e8;
+        .song-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 6px;
             margin-bottom: 10px;
-            text-transform: lowercase;
         }
         
-        .page-subtitle {
-            font-size: 1.1rem;
+        .song-info {
+            flex-grow: 1;
+            margin-right: 15px;
+        }
+        
+        .song-title {
+            color: #e8e8e8;
+            margin-bottom: 5px;
+            word-break: break-word;
+        }
+        
+        .song-url {
             color: #888;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
+            font-size: 0.85rem;
+            word-break: break-all;
         }
         
-        /* Category Navigation */
-        .category-nav {
+        .song-actions {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 30px 0;
-            flex-wrap: wrap;
+            gap: 8px;
         }
         
-        .category-btn {
-            background: transparent;
-            border: 1px solid #333;
-            color: #aaa;
-            padding: 10px 25px;
-            border-radius: 5px;
+        .action-btn {
+            background: #3a3a3a;
+            color: #e8e8e8;
+            border: 1px solid #555;
+            padding: 6px 12px;
+            border-radius: 4px;
             cursor: pointer;
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .category-btn:hover,
-        .category-btn.active {
-            background-color: #1a1a1a;
-            border-color: #666;
-            color: #e8e8e8;
-        }
-        
-        /* Section Container */
-        .section-container {
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-            margin-top: 30px;
-        }
-        
-        .section {
-            background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
-            border: 1px solid #333;
-            padding: 30px;
-            border-radius: 5px;
-            position: relative;
-        }
-        
-        .section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #666, #333);
-        }
-        
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #333;
-        }
-        
-        .section-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-        
-        .section-title {
-            font-size: 1.8rem;
-            color: #e8e8e8;
-        }
-        
-        /* Music Section - Video Grid */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-        
-        .video-item {
-            background-color: #2a2a2a;
-            border: 1px solid #444;
-            border-radius: 5px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .video-item:hover {
-            transform: translateY(-5px);
-            border-color: #666;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .video-embed {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border: none;
-        }
-        
-        .video-title {
-            padding: 15px;
-            font-size: 0.95rem;
-            color: #aaa;
-            text-align: center;
-            border-top: 1px solid #444;
-        }
-        
-        /* Movies Section - Coming Soon */
-        .movies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .movie-card {
-            background-color: #2a2a2a;
-            border: 1px solid #444;
-            border-radius: 5px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .movie-card:hover {
-            border-color: #666;
-            transform: translateY(-3px);
-        }
-        
-        .movie-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            opacity: 0.7;
-        }
-        
-        .movie-text {
-            color: #888;
-            font-size: 1rem;
-        }
-        
-        /* Video Games Section - Coming Soon */
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .game-card {
-            background-color: #2a2a2a;
-            border: 1px solid #444;
-            border-radius: 5px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .game-card:hover {
-            border-color: #666;
-            transform: translateY(-3px);
-        }
-        
-        .game-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            opacity: 0.7;
-        }
-        
-        .game-text {
-            color: #888;
-            font-size: 1rem;
-        }
-        
-        /* Footer */
-        .footer {
-            margin-top: 60px;
-            padding: 30px 0;
-            border-top: 1px solid #333;
-            text-align: center;
-            color: #666;
             font-size: 0.85rem;
         }
         
-        /* Back Button */
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background-color: #333;
-            color: #e8e8e8;
-            border: 1px solid #444;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
+        .action-btn:hover {
+            background: #4a4a4a;
+        }
+        
+        .action-btn.delete {
+            background: #5a2a2a;
+            border-color: #7a3a3a;
+        }
+        
+        .action-btn.delete:hover {
+            background: #6a3a3a;
+        }
+        
+        .action-btn.move-up {
+            background: #2a4a5a;
+            border-color: #3a5a6a;
+        }
+        
+        .action-btn.move-up:hover {
+            background: #3a5a6a;
+        }
+        
+        .action-btn.move-down {
+            background: #2a5a4a;
+            border-color: #3a6a5a;
+        }
+        
+        .action-btn.move-down:hover {
+            background: #3a6a5a;
+        }
+        
+        .manager-buttons {
+            display: flex;
+            justify-content: space-between;
             margin-top: 20px;
         }
         
-        .back-btn:hover {
-            background-color: #444;
-            border-color: #666;
+        .manager-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: 1px solid #555;
+            background: #3a3a3a;
+            color: #e8e8e8;
+            cursor: pointer;
+            font-family: inherit;
         }
         
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-bar {
-                padding: 15px;
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .nav-links {
-                gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .main-container {
-                margin-top: 120px;
-            }
-            
-            .page-title {
-                font-size: 2rem;
-            }
-            
-            .video-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .movies-grid,
-            .games-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-            
-            .section {
-                padding: 20px;
-            }
+        .manager-btn:hover {
+            background: #4a4a3a;
         }
         
-        @media (max-width: 480px) {
-            .category-nav {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .category-btn {
-                width: 100%;
-                max-width: 250px;
-            }
-            
-            .movies-grid,
-            .games-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .page-title {
-                font-size: 1.8rem;
-            }
-            
-            .section-title {
-                font-size: 1.5rem;
-            }
+        .manage-songs-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #3a3a3a;
+            color: #e8e8e8;
+            border: 1px solid #555;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px 0;
+            font-family: inherit;
         }
         
-        /* Random floating elements */
-        .floating-element {
-            position: fixed;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.1;
+        .manage-songs-btn:hover {
+            background: #4a4a4a;
         }
         
-        .floating-1 {
-            top: 20%;
-            left: 5%;
-            width: 100px;
-            height: 100px;
-            border: 1px solid #666;
-            transform: rotate(45deg);
-        }
-        
-        .floating-2 {
-            bottom: 30%;
-            right: 5%;
-            width: 150px;
-            height: 150px;
-            border: 1px solid #666;
-            border-radius: 50%;
-        }
-        
-        .floating-3 {
-            top: 40%;
-            right: 10%;
-            width: 80px;
-            height: 80px;
-            border: 1px solid #666;
-            transform: rotate(15deg);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <!-- Floating decorative elements -->
-    <div class="floating-element floating-1"></div>
-    <div class="floating-element floating-2"></div>
-    <div class="floating-element floating-3"></div>
+    <!-- ... (keep all your existing body content up to the music section) ... -->
     
-    <!-- Navigation -->
-    <nav class="nav-bar">
-        <a href="index.html" class="site-title" style="text-decoration: none; color: inherit;">← plastic chair world</a>
-        <div class="nav-links">
-            <a href="#music" class="nav-link">/music</a>
-            <a href="#movies" class="nav-link">/movies</a>
-            <a href="#games" class="nav-link">/video games</a>
-        </div>
-    </nav>
-    
-    <div class="main-container">
-        <!-- Header -->
-        <section class="header-section">
-            <h1 class="page-title">my favorite internet pieces</h1>
-            <p class="page-subtitle">curated collection of music videos, films, and digital experiences that resonate with me</p>
-        </section>
-        
-        <!-- Category Navigation (Optional - can scroll to sections) -->
-        <div class="category-nav">
-            <button class="category-btn active" onclick="scrollToSection('music')">🎵 music videos</button>
-            <button class="category-btn" onclick="scrollToSection('movies')">🎬 movies</button>
-            <button class="category-btn" onclick="scrollToSection('games')">🎮 video games</button>
-        </div>
-        
-        <!-- Sections Container -->
-        <div class="section-container">
-        <!-- Music Section -->
-<section id="music" class="section">
-    <div class="section-header">
-        <div class="section-icon">🎵</div>
-        <h2 class="section-title">music videos</h2>
-    </div>
-    <p style="color: #888; margin-bottom: 20px; line-height: 1.6;">
-        Visual companions to sounds that stick in my head. A mix of nostalgia, mood, and aesthetic.
-    </p>
-    
-    <div class="video-grid">
-        <!-- Original 5 videos -->
-        <!-- Video 1 -->
-        <div class="video-item">
-            <iframe 
-                class="video-embed"
-                src="https://www.youtube.com/embed/aIJamrpOf8A" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-            <div class="video-title">video #1</div>
-        </div>
-        
-        <!-- Video 2 -->
-        <div class="video-item">
-            <iframe 
-                class="video-embed"
-                src="https://www.youtube.com/embed/Z14wPTz6PdY" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-            <div class="video-title">video #2</div>
-        </div>
-        
-        <!-- Video 3 -->
-        <div class="video-item">
-            <iframe 
-                class="video-embed"
-                src="https://www.youtube.com/embed/q5K_w9Tbhoc" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-            <div class="video-title">video #3</div>
-        </div>
-        
-        <!-- Video 4 -->
-        <div class="video-item">
-            <iframe 
-                class="video-embed"
-                src="https://www.youtube.com/embed/9h4ghxsroGk" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-            <div class="video-title">video #4</div>
-        </div>
-        
-        <!-- Video 5 -->
-        <div class="video-item">
-            <iframe 
-                class="video-embed"
-                src="https://www.youtube.com/embed/6nfMT5P89pk" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-            <div class="video-title">video #5</div>
-        </div>
-        
-        <!-- NEW VIDEO 6 -->
-        <div class="video-item">
-            <iframe 
-                class="video-embed"
-                src="https://www.youtube.com/embed/49XH7AZH7NM" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-            <div class="video-title">video #6</div>
-        </div>
-        
-        <!-- NEW VIDEO 7 -->
-        <div class="video-item">
-            <iframe 
-                class="video-embed"
-                src="https://www.youtube.com/embed/vyVObK1nhf8" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-            <div class="video-title">video #7</div>
-        </div>
-        
-        <!-- NEW VIDEO 8 -->
-        <div class="video-item">
-            <iframe 
-                class="video-embed"
-                src="https://www.youtube.com/embed/gPjPb3nNprg" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-            <div class="video-title">video #8</div>
-        </div>
-        
-        <!-- NEW VIDEO 9 -->
-        <div class="video-item">
-            <iframe 
-                class="video-embed"
-                src="https://www.youtube.com/embed/XA92eyhLYvo" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-            <div class="video-title">video #9</div>
-        </div>
-    </div>
-</section>
-            
-            <!-- Movies Section -->
-            <section id="movies" class="section">
-                <div class="section-header">
-                    <div class="section-icon">🎬</div>
-                    <h2 class="section-title">movies</h2>
-                </div>
-                <p style="color: #888; margin-bottom: 20px; line-height: 1.6;">
-                    Films that left an impression. More than just watching—experiences that linger.
-                </p>
-                
-                <div class="movies-grid">
-                    <div class="movie-card">
-                        <div class="movie-icon">📽️</div>
-                        <div class="movie-text">coming soon</div>
-                    </div>
-                    <div class="movie-card">
-                        <div class="movie-icon">🎞️</div>
-                        <div class="movie-text">coming soon</div>
-                    </div>
-                    <div class="movie-card">
-                        <div class="movie-icon">🎭</div>
-                        <div class="movie-text">coming soon</div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Video Games Section -->
-            <section id="games" class="section">
-                <div class="section-header">
-                    <div class="section-icon">🎮</div>
-                    <h2 class="section-title">video games</h2>
-                </div>
-                <p style="color: #888; margin-bottom: 20px; line-height: 1.6;">
-                    Digital worlds worth getting lost in. Games with atmosphere, story, or unique mechanics.
-                </p>
-                
-                <div class="games-grid">
-                    <div class="game-card">
-                        <div class="game-icon">🕹️</div>
-                        <div class="game-text">coming soon</div>
-                    </div>
-                    <div class="game-card">
-                        <div class="game-icon">🎲</div>
-                        <div class="game-text">coming soon</div>
-                    </div>
-                    <div class="game-card">
-                        <div class="game-icon">🌟</div>
-                        <div class="game-text">coming soon</div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        
-        <!-- Footer -->
-        <footer class="footer">
-            <div>my favorite internet pieces · metallicocoon</div>
-            <div style="margin-top: 10px; font-size: 0.8rem; color: #555;">
-                collection in progress · last updated: unknown
+    <!-- Music Section -->
+    <section id="music" class="section">
+        <div class="section-header">
+            <div class="section-icon">🎵</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <h2 class="section-title">music videos</h2>
+                <button id="manage-songs-btn" class="manage-songs-btn">
+                    <span>🎛️</span> Manage Songs
+                </button>
             </div>
-            <a href="index.html" class="back-btn">
-                ← back to main site
-            </a>
-        </footer>
-    </div>
+        </div>
+        <p style="color: #888; margin-bottom: 20px; line-height: 1.6;">
+            Visual companions to sounds that stick in my head. A mix of nostalgia, mood, and aesthetic.
+        </p>
+        
+        <!-- Song Manager (Hidden by default) -->
+        <div id="song-manager" class="song-manager">
+            <div class="manager-header">
+                <h3 class="manager-title">Manage Music Videos</h3>
+                <button class="close-manager" id="close-manager">Close</button>
+            </div>
+            
+            <div class="add-song-form">
+                <input 
+                    type="text" 
+                    id="new-video-url" 
+                    class="url-input"
+                    placeholder="Paste YouTube URL (e.g., https://youtu.be/VIDEO_ID)"
+                >
+                <button id="add-video-btn" class="add-btn">Add Video</button>
+            </div>
+            
+            <div class="song-list" id="song-list">
+                <!-- Song items will be added here by JavaScript -->
+            </div>
+            
+            <div class="manager-buttons">
+                <button id="reset-to-default" class="manager-btn">Reset to Default</button>
+                <button id="save-changes" class="manager-btn">Save Changes</button>
+            </div>
+        </div>
+        
+        <!-- Video Grid -->
+        <div class="video-grid" id="video-grid">
+            <!-- Videos will be loaded here by JavaScript -->
+        </div>
+    </section>
+    
+    <!-- ... (rest of your existing HTML) ... -->
     
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if(targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Category button functionality
-            const categoryBtns = document.querySelectorAll('.category-btn');
-            categoryBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    categoryBtns.forEach(b => b.classList.remove('active'));
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                });
-            });
-            
-            // Scroll to section function
-            window.scrollToSection = function(sectionId) {
-                const section = document.getElementById(sectionId);
-                if(section) {
-                    window.scrollTo({
-                        top: section.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Update active button
-                    categoryBtns.forEach(btn => btn.classList.remove('active'));
-                    document.querySelector(`.category-btn[onclick="scrollToSection('${sectionId}')"]`).classList.add('active');
-                }
-            };
-            
-            // YouTube iframe error handling
-            const iframes = document.querySelectorAll('iframe');
-            iframes.forEach(iframe => {
-                iframe.addEventListener('error', function() {
-                    const parent = this.parentElement;
-                    const errorMsg = document.createElement('div');
-                    errorMsg.style.cssText = `
-                        background-color: #2a2a2a;
-                        color: #888;
-                        padding: 20px;
-                        text-align: center;
-                        border: 1px solid #444;
-                    `;
-                    errorMsg.innerHTML = `
-                        <div style="font-size: 2rem; margin-bottom: 10px;">⚠️</div>
-                        <div>Video unavailable</div>
-                        <div style="font-size: 0.8rem; margin-top: 5px;">Link may be broken or private</div>
-                    `;
-                    parent.replaceChild(errorMsg, this);
-                });
-            });
-            
-            // Highlight current section in view
-            const sections = document.querySelectorAll('.section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            function highlightCurrentSection() {
-                let currentSection = '';
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 150;
-                    const sectionBottom = sectionTop + section.offsetHeight;
-                    
-                    if(window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
-                        currentSection = section.id;
-                    }
-                });
-                
-                navLinks.forEach(link => {
-                    link.style.color = '#aaa';
-                    if(link.getAttribute('href') === `#${currentSection}`) {
-                        link.style.color = '#e8e8e8';
-                    }
-                });
-                
-                // Also update category buttons
-                if(currentSection) {
-                    categoryBtns.forEach(btn => btn.classList.remove('active'));
-                    const activeBtn = document.querySelector(`.category-btn[onclick="scrollToSection('${currentSection}')"]`);
-                    if(activeBtn) {
-                        activeBtn.classList.add('active');
-                    }
-                }
-            }
-            
-            window.addEventListener('scroll', highlightCurrentSection);
-            highlightCurrentSection(); // Initial call
-        });
-        // Function to extract video ID from YouTube URL
-function getVideoId(url) {
-    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
-    return match ? match[1] : null;
-}
-
-// Function to fetch video title from YouTube
-async function fetchVideoTitle(videoId) {
-    try {
-        // Try multiple methods to get the title
-        const methods = [
-            // Method 1: YouTube oEmbed API
-            fetch(`https://www.youtube.com/oembed?url=https://youtube.com/watch?v=${videoId}&format=json`)
-                .then(res => res.ok ? res.json() : Promise.reject('Method 1 failed')),
-            
-            // Method 2: noembed.com fallback
-            fetch(`https://noembed.com/embed?url=https://youtube.com/watch?v=${videoId}`)
-                .then(res => res.ok ? res.json() : Promise.reject('Method 2 failed'))
+        // Default videos (your original 9 videos)
+        const DEFAULT_VIDEOS = [
+            'aIJamrpOf8A',
+            'Z14wPTz6PdY',
+            'q5K_w9Tbhoc',
+            '9h4ghxsroGk',
+            '6nfMT5P89pk',
+            '49XH7AZH7NM',
+            'vyVObK1nhf8',
+            'gPjPb3nNprg',
+            'XA92eyhLYvo'
         ];
-
-        const response = await Promise.any(methods);
-        return response.title || `YouTube Video (${videoId})`;
-    } catch (error) {
-        console.log(`Couldn't fetch title for video ${videoId}:`, error);
-        return `YouTube Video (${videoId})`;
-    }
-}
-
-// Function to update all video titles
-async function updateVideoTitles() {
-    const videoItems = document.querySelectorAll('.video-item');
-    
-    for (const item of videoItems) {
-        const iframe = item.querySelector('iframe');
-        const titleElement = item.querySelector('.video-title');
         
-        if (!iframe || !titleElement) continue;
-        
-        const videoId = getVideoId(iframe.src);
-        if (!videoId) continue;
-        
-        // Show loading text
-        titleElement.textContent = 'Loading...';
-        titleElement.style.color = '#666';
-        titleElement.style.fontStyle = 'italic';
-        
-        try {
-            const title = await fetchVideoTitle(videoId);
-            titleElement.textContent = title;
-            titleElement.style.color = ''; // Reset to default
-            titleElement.style.fontStyle = ''; // Reset to default
+        // Extract video ID from URL
+        function getVideoId(url) {
+            const patterns = [
+                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s?]+)/,
+                /^([A-Za-z0-9_-]{11})$/
+            ];
             
-            // Truncate long titles
-            if (title.length > 60) {
-                titleElement.textContent = title.substring(0, 57) + '...';
+            for (const pattern of patterns) {
+                const match = url.match(pattern);
+                if (match) return match[1];
             }
-        } catch (error) {
-            titleElement.textContent = `Video (${videoId.substring(0, 8)}...)`;
-            titleElement.style.color = '#888';
+            return null;
         }
         
-        // Add a small delay to avoid rate limiting
-        await new Promise(resolve => setTimeout(resolve, 300));
-    }
-}
-
-// Run when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    // Update video titles after a short delay
-    setTimeout(updateVideoTitles, 1000);
-    
-    // Also update titles when switching back to the music section
-    const categoryBtns = document.querySelectorAll('.category-btn');
-    categoryBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (this.textContent.includes('music')) {
-                setTimeout(updateVideoTitles, 500);
+        // Fetch video title from YouTube
+        async function fetchVideoTitle(videoId) {
+            try {
+                const response = await fetch(`https://noembed.com/embed?url=https://youtube.com/watch?v=${videoId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.title || `YouTube Video (${videoId})`;
+                }
+            } catch (error) {
+                console.log('Error fetching title:', error);
             }
+            return `YouTube Video (${videoId})`;
+        }
+        
+        // Load videos from localStorage or use defaults
+        function loadVideos() {
+            const stored = localStorage.getItem('musicVideos');
+            return stored ? JSON.parse(stored) : [...DEFAULT_VIDEOS];
+        }
+        
+        // Save videos to localStorage
+        function saveVideos(videos) {
+            localStorage.setItem('musicVideos', JSON.stringify(videos));
+        }
+        
+        // Render video grid
+        async function renderVideoGrid() {
+            const grid = document.getElementById('video-grid');
+            const videos = loadVideos();
+            
+            grid.innerHTML = '';
+            
+            for (const videoId of videos) {
+                const videoItem = document.createElement('div');
+                videoItem.className = 'video-item';
+                
+                videoItem.innerHTML = `
+                    <iframe 
+                        class="video-embed"
+                        src="https://www.youtube.com/embed/${videoId}" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="video-title">Loading...</div>
+                `;
+                
+                grid.appendChild(videoItem);
+                
+                // Fetch and update title
+                const titleElement = videoItem.querySelector('.video-title');
+                try {
+                    const title = await fetchVideoTitle(videoId);
+                    titleElement.textContent = title.length > 60 ? title.substring(0, 57) + '...' : title;
+                    titleElement.style.color = '#e8e8e8';
+                } catch (error) {
+                    titleElement.textContent = `Video (${videoId.substring(0, 8)}...)`;
+                    titleElement.style.color = '#888';
+                }
+                
+                // Small delay to avoid rate limiting
+                await new Promise(resolve => setTimeout(resolve, 200));
+            }
+        }
+        
+        // Render song list in manager
+        async function renderSongList() {
+            const list = document.getElementById('song-list');
+            const videos = loadVideos();
+            
+            list.innerHTML = '';
+            
+            for (let i = 0; i < videos.length; i++) {
+                const videoId = videos[i];
+                const listItem = document.createElement('div');
+                listItem.className = 'song-item';
+                listItem.dataset.index = i;
+                
+                const title = await fetchVideoTitle(videoId);
+                
+                listItem.innerHTML = `
+                    <div class="song-info">
+                        <div class="song-title">${i + 1}. ${title.length > 50 ? title.substring(0, 47) + '...' : title}</div>
+                        <div class="song-url">ID: ${videoId}</div>
+                    </div>
+                    <div class="song-actions">
+                        <button class="action-btn move-up" onclick="moveSongUp(${i})" ${i === 0 ? 'disabled' : ''}>↑</button>
+                        <button class="action-btn move-down" onclick="moveSongDown(${i})" ${i === videos.length - 1 ? 'disabled' : ''}>↓</button>
+                        <button class="action-btn delete" onclick="removeSong(${i})">×</button>
+                    </div>
+                `;
+                
+                list.appendChild(listItem);
+            }
+        }
+        
+        // Song management functions (need to be global)
+        window.addSong = async function() {
+            const input = document.getElementById('new-video-url');
+            const url = input.value.trim();
+            
+            if (!url) {
+                alert('Please enter a YouTube URL or Video ID');
+                return;
+            }
+            
+            const videoId = getVideoId(url);
+            if (!videoId) {
+                alert('Invalid YouTube URL or Video ID');
+                return;
+            }
+            
+            const videos = loadVideos();
+            
+            // Check if video already exists
+            if (videos.includes(videoId)) {
+                alert('This video is already in your list');
+                return;
+            }
+            
+            videos.push(videoId);
+            saveVideos(videos);
+            input.value = '';
+            
+            await renderSongList();
+            alert('Video added! Click "Save Changes" to update the main list.');
+        };
+        
+        window.removeSong = function(index) {
+            if (confirm('Remove this video from your list?')) {
+                const videos = loadVideos();
+                videos.splice(index, 1);
+                saveVideos(videos);
+                renderSongList();
+            }
+        };
+        
+        window.moveSongUp = function(index) {
+            if (index <= 0) return;
+            
+            const videos = loadVideos();
+            const temp = videos[index];
+            videos[index] = videos[index - 1];
+            videos[index - 1] = temp;
+            
+            saveVideos(videos);
+            renderSongList();
+        };
+        
+        window.moveSongDown = function(index) {
+            const videos = loadVideos();
+            if (index >= videos.length - 1) return;
+            
+            const temp = videos[index];
+            videos[index] = videos[index + 1];
+            videos[index + 1] = temp;
+            
+            saveVideos(videos);
+            renderSongList();
+        };
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render the video grid
+            renderVideoGrid();
+            
+            // Song manager controls
+            const manageBtn = document.getElementById('manage-songs-btn');
+            const songManager = document.getElementById('song-manager');
+            const closeManager = document.getElementById('close-manager');
+            const addBtn = document.getElementById('add-video-btn');
+            const newVideoInput = document.getElementById('new-video-url');
+            const saveBtn = document.getElementById('save-changes');
+            const resetBtn = document.getElementById('reset-to-default');
+            
+            // Show/hide manager
+            manageBtn.addEventListener('click', async () => {
+                songManager.classList.add('show');
+                await renderSongList();
+            });
+            
+            closeManager.addEventListener('click', () => {
+                songManager.classList.remove('show');
+            });
+            
+            // Add video
+            addBtn.addEventListener('click', window.addSong);
+            
+            // Add video on Enter key
+            newVideoInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') window.addSong();
+            });
+            
+            // Save changes and reload grid
+            saveBtn.addEventListener('click', async () => {
+                await renderVideoGrid();
+                songManager.classList.remove('show');
+                alert('Changes saved!');
+            });
+            
+            // Reset to defaults
+            resetBtn.addEventListener('click', () => {
+                if (confirm('Reset to default videos? This will replace your current list.')) {
+                    saveVideos([...DEFAULT_VIDEOS]);
+                    renderSongList();
+                    alert('Reset to defaults. Click "Save Changes" to update.');
+                }
+            });
+            
+            // ... (rest of your existing JavaScript code) ...
         });
-    });
-});
     </script>
 </body>
 </html>
