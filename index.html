@@ -739,22 +739,26 @@
                 history.replaceState(null, null, ' ');
             }
             
-            // Smooth scrolling for nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if(targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+           // Smooth scrolling for nav links (only for internal page links)
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        
+        // Only prevent default and scroll if it's an internal link (starts with #)
+        if(targetId.startsWith('#')) {
+            e.preventDefault();
+            const targetElement = document.querySelector(targetId);
             
+            if(targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        // If it's not an internal link (like favorites.html), let it navigate normally
+    });
+});
             // Add subtle hover effects to media cards
             document.querySelectorAll('.media-card').forEach(card => {
                 card.addEventListener('mouseenter', function() {
@@ -776,4 +780,5 @@
     </script>
 </body>
 </html>
+
 
