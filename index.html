@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
         
         body {
@@ -18,14 +18,14 @@
             color: #f5f5f5;
             min-height: 100vh;
             padding: 20px;
-            line-height: 1.8;
+            line-height: 1.6;
             position: relative;
         }
         
         .site-title {
             position: absolute;
             top: 25px;
-            right: 25px;
+            left: 25px;
             font-size: 1.8rem;
             font-weight: 300;
             color: #ffffff;
@@ -33,50 +33,61 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
             margin: 80px auto 40px;
             padding: 0 20px;
         }
         
+        /* Main grid with 2 columns at top, 2 columns at bottom */
         .main-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
             gap: 25px;
             margin-top: 40px;
         }
         
+        /* Left column: Last.fm & Letterboxd */
         .links-column {
             display: flex;
             flex-direction: column;
             gap: 25px;
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
         }
         
+        /* Right column: Music Player */
         .music-column {
             display: flex;
             flex-direction: column;
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
         }
         
-        .bottom-sections {
-            grid-column: 1 / -1;
-            display: flex;
-            flex-direction: column;
+        /* Bottom row: Movie & Messages side by side */
+        .bottom-row {
+            grid-column: 1 / 3;
+            grid-row: 2 / 3;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 25px;
-            margin-top: 25px;
         }
         
         .link-item {
             background-color: #1a1a1a;
             border: 1px solid #333;
             border-radius: 12px;
-            padding: 20px;
+            padding: 25px;
             transition: all 0.3s ease;
             text-decoration: none;
             color: inherit;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            text-align: right;
+            text-align: center;
             height: 100%;
+            min-height: 350px;
         }
         
         a.link-item:hover {
@@ -87,9 +98,6 @@
         }
         
         .music-player-full, .message-box, .movie-section {
-            flex-direction: column;
-            text-align: center;
-            align-items: center;
             cursor: default;
         }
         
@@ -100,58 +108,52 @@
         }
         
         .link-logo {
-            width: 50px;
-            height: 50px;
-            margin-left: 20px;
-            margin-right: 0;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
-        .music-player-full .link-logo, 
-        .message-box .link-logo,
-        .movie-section .link-logo {
-            margin-left: 0;
-            margin-bottom: 15px;
-            width: 60px;
-            height: 60px;
-        }
-        
         .link-logo img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            border-radius: 6px;
+            border-radius: 8px;
         }
         
         .music-player-full .link-logo img {
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 10px;
         }
         
         .link-content {
             flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
         }
         
         .link-title {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 500;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: #e0e0e0;
         }
         
         .link-url {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: #aaa;
-            word-break: break-word;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
         
+        /* Audio player styling */
         .music-player-full audio {
             width: 100%;
-            margin-top: 15px;
+            margin-top: auto;
             border-radius: 8px;
         }
         
@@ -159,21 +161,10 @@
             background-color: #2a2a2a;
         }
         
-        audio::-webkit-media-controls-current-time-display,
-        audio::-webkit-media-controls-time-remaining-display {
-            color: #f5f5f5;
-        }
-        
-        audio::-webkit-media-controls-play-button,
-        audio::-webkit-media-controls-volume-slider,
-        audio::-webkit-media-controls-mute-button {
-            filter: invert(0.8);
-        }
-        
         /* Message Form Styles */
         .message-form {
             width: 100%;
-            margin-top: 15px;
+            margin-top: 10px;
         }
         
         .message-textarea {
@@ -187,9 +178,9 @@
             font-size: 1rem;
             resize: vertical;
             margin-bottom: 15px;
-            min-height: 120px;
-            text-align: right;
-            direction: rtl;
+            min-height: 150px;
+            text-align: left;
+            direction: ltr;
         }
         
         .message-textarea:focus {
@@ -200,7 +191,7 @@
         
         .message-textarea::placeholder {
             color: #777;
-            text-align: right;
+            text-align: left;
         }
         
         .submit-btn {
@@ -214,7 +205,6 @@
             cursor: pointer;
             transition: all 0.2s ease;
             width: 100%;
-            font-family: inherit;
         }
         
         .submit-btn:hover {
@@ -247,39 +237,57 @@
             color: #666;
             font-size: 0.9rem;
             text-align: center;
+            grid-column: 1 / -1;
         }
         
+        /* Arabic note styling */
+        .arabic-note {
+            font-size: 0.95rem;
+            color: #aaa;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .site-title {
                 font-size: 1.6rem;
                 top: 20px;
-                right: 20px;
+                left: 20px;
             }
             
             .main-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                grid-template-rows: auto auto auto auto;
+            }
+            
+            .links-column {
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+            }
+            
+            .music-column {
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+            }
+            
+            .bottom-row {
+                grid-column: 1 / 2;
+                grid-row: 3 / 5;
+                grid-template-columns: 1fr;
             }
             
             .link-item {
-                padding: 18px;
+                padding: 20px;
+                min-height: 300px;
             }
             
             .link-logo {
-                width: 45px;
-                height: 45px;
-                margin-left: 15px;
-            }
-            
-            .music-player-full .link-logo, 
-            .message-box .link-logo,
-            .movie-section .link-logo {
-                width: 55px;
-                height: 55px;
-            }
-            
-            .music-player-full {
-                min-height: 300px;
+                width: 70px;
+                height: 70px;
+                margin-bottom: 15px;
             }
         }
         
@@ -287,7 +295,7 @@
             .site-title {
                 font-size: 1.4rem;
                 top: 15px;
-                right: 15px;
+                left: 15px;
             }
             
             .container {
@@ -295,17 +303,13 @@
             }
             
             .link-item {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                padding: 25px 20px;
+                padding: 20px;
+                min-height: 280px;
             }
             
             .link-logo {
                 width: 60px;
                 height: 60px;
-                margin-left: 0;
-                margin-bottom: 15px;
             }
             
             .link-title {
@@ -316,15 +320,8 @@
                 font-size: 0.9rem;
             }
             
-            .music-player-full .link-logo, 
-            .message-box .link-logo,
-            .movie-section .link-logo {
-                width: 70px;
-                height: 70px;
-            }
-            
             .message-textarea {
-                min-height: 100px;
+                min-height: 120px;
             }
         }
     </style>
@@ -334,7 +331,7 @@
     
     <div class="container">
         <div class="main-grid">
-            <!-- Left Column: Last.fm & Letterboxd -->
+            <!-- Left column: Last.fm & Letterboxd -->
             <div class="links-column">
                 <a href="https://www.last.fm/user/shrimby" target="_blank" class="link-item">
                     <div class="link-logo">
@@ -357,7 +354,7 @@
                 </a>
             </div>
             
-            <!-- Right Column: Music Player -->
+            <!-- Right column: Music Player -->
             <div class="music-column">
                 <div class="link-item music-player-full">
                     <div class="link-logo">
@@ -375,33 +372,33 @@
                 </div>
             </div>
             
-            <!-- Bottom Sections: Movie Link & Message Box -->
-            <div class="bottom-sections">
-                <!-- Movie Link Section -->
-                <a href="https://drive.google.com/file/d/YOUR_FILE_ID/view" target="_blank" class="link-item movie-section">
+            <!-- Bottom row: Movie & Messages side by side -->
+            <div class="bottom-row">
+                <!-- Movie Section -->
+                <a href="https://drive.google.com/file/d/1kiloXXQf_wXbBByNwWrw4nJNYfWYjK0J/view" target="_blank" class="link-item movie-section">
                     <div class="link-logo">
-                        <div style="font-size: 2rem;">🎬</div>
+                        <div style="font-size: 2.5rem;">🎬</div>
                     </div>
                     <div class="link-content">
                         <div class="link-title">Today's Movie</div>
-                        <div class="link-url">Click to watch → The Grand Budapest Hotel</div>
+                        <div class="link-url">duck soup (1933)</div>
                     </div>
                 </a>
                 
                 <!-- Message Box Section -->
                 <div class="link-item message-box">
                     <div class="link-logo">
-                        <div style="font-size: 2rem;">✉️</div>
+                        <div style="font-size: 2.5rem;">✉️</div>
                     </div>
                     <div class="link-content">
                         <div class="link-title">Send Anonymous Message</div>
-                        <div class="link-url">الرسالة مجهولة، اذا موضوعك يحتاج رد ارفق ايميلك بنفس الرسالة وشكرا</div>
+                        <div class="arabic-note">الرسالة مجهولة، اذا موضوعك يحتاج رد ارفق ايميلك بنفس الرسالة وشكرا</div>
                         
                         <!-- REPLACE "YOUR_FORM_ID" with your actual Formspree ID -->
-                        <form id="message-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="message-form">
+                        <form id="message-form" action="https://formspree.io/f/xzznyrar" method="POST" class="message-form">
                             <textarea 
                                 name="message" 
-                                placeholder="اكتب رسالتك المجهولة هنا..." 
+                                placeholder="Type your anonymous message here..." 
                                 required
                                 rows="4"
                                 class="message-textarea"
@@ -411,13 +408,13 @@
                             <input type="hidden" name="_next" value="#success">
                             
                             <button type="submit" class="submit-btn">
-                                إرسال مجهول
+                                Send Anonymously
                             </button>
                         </form>
                         
                         <div id="success-message" class="success-message">
-                            <h3>✅ تم إرسال الرسالة!</h3>
-                            <p>وصلت رسالتك المجهولة بنجاح.</p>
+                            <h3>✅ Message Sent!</h3>
+                            <p>Your anonymous message has been delivered.</p>
                         </div>
                     </div>
                 </div>
@@ -439,12 +436,12 @@
                        !this.parentElement.parentElement.classList.contains('message-box') &&
                        !this.parentElement.parentElement.classList.contains('movie-section')) {
                         this.style.display = 'none';
-                        this.parentElement.innerHTML = '<div style="font-size: 1.5rem;">🔗</div>';
+                        this.parentElement.innerHTML = '<div style="font-size: 2rem;">🔗</div>';
                     }
                     
                     if(this.parentElement.parentElement.classList.contains('music-player-full')) {
                         this.style.display = 'none';
-                        this.parentElement.innerHTML = '<div style="font-size: 2.5rem;">🎵</div>';
+                        this.parentElement.innerHTML = '<div style="font-size: 3rem;">🎵</div>';
                     }
                 };
             });
@@ -460,18 +457,6 @@
                 });
             }
             
-            function adjustMusicPlayerHeight() {
-                const linksColumn = document.querySelector('.links-column');
-                const musicColumn = document.querySelector('.music-column');
-                
-                if(linksColumn && musicColumn && window.innerWidth > 768) {
-                    const linksHeight = linksColumn.offsetHeight;
-                    musicColumn.style.height = linksHeight + 'px';
-                } else if(musicColumn) {
-                    musicColumn.style.height = 'auto';
-                }
-            }
-            
             const messageForm = document.getElementById('message-form');
             const successMessage = document.getElementById('success-message');
             
@@ -482,7 +467,7 @@
                     const submitBtn = this.querySelector('.submit-btn');
                     const originalText = submitBtn.textContent;
                     
-                    submitBtn.textContent = 'جاري الإرسال...';
+                    submitBtn.textContent = 'Sending...';
                     submitBtn.disabled = true;
                     
                     try {
@@ -503,11 +488,11 @@
                                 successMessage.classList.remove('show');
                             }, 5000);
                         } else {
-                            alert('فشل في إرسال الرسالة. حاول مرة أخرى.');
+                            alert('Failed to send message. Please try again.');
                         }
                     } catch(error) {
                         console.error('Form submission error:', error);
-                        alert('فشل في إرسال الرسالة. حاول مرة أخرى.');
+                        alert('Failed to send message. Please try again.');
                     } finally {
                         submitBtn.textContent = originalText;
                         submitBtn.disabled = false;
@@ -519,10 +504,6 @@
                 successMessage.classList.add('show');
                 history.replaceState(null, null, ' ');
             }
-            
-            window.addEventListener('load', adjustMusicPlayerHeight);
-            window.addEventListener('resize', adjustMusicPlayerHeight);
-            setTimeout(adjustMusicPlayerHeight, 100);
         });
     </script>
 </body>
