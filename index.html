@@ -48,11 +48,8 @@
             margin-top: 30px;
         }
         
-        /* Left column: Last.fm & Letterboxd */
-        .links-column {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        /* Left column: Combined Last.fm & Letterboxd */
+        .social-box {
             grid-column: 1 / 2;
             grid-row: 1 / 2;
         }
@@ -87,7 +84,7 @@
             align-items: center;
             text-align: center;
             height: 100%;
-            min-height: 220px; /* Reduced from 350px */
+            min-height: 220px;
         }
         
         a.link-item:hover {
@@ -107,24 +104,85 @@
             background-color: #1a1a1a;
         }
         
-        .link-logo {
-            width: 60px; /* Reduced from 80px */
-            height: 60px; /* Reduced from 80px */
-            margin-bottom: 15px; /* Reduced from 20px */
+        /* Combined Social Box Styles */
+        .combined-social {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: 100%;
+            min-height: 220px;
+        }
+        
+        .social-service {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .social-service:hover {
+            background-color: #252525;
+            transform: translateY(-2px);
+        }
+        
+        .social-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .social-logo {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+        }
+        
+        .social-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        
+        .social-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #e0e0e0;
+        }
+        
+        .social-url {
+            font-size: 0.85rem;
+            color: #aaa;
+            line-height: 1.4;
+            word-break: break-all;
+        }
+        
+        /* Music Player Styles */
+        .music-player-full .link-logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
-        .link-logo img {
+        .music-player-full .link-logo img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            border-radius: 6px;
-        }
-        
-        .music-player-full .link-logo img {
             object-fit: cover;
             border-radius: 8px;
         }
@@ -137,23 +195,23 @@
         }
         
         .link-title {
-            font-size: 1.3rem; /* Reduced from 1.6rem */
+            font-size: 1.3rem;
             font-weight: 500;
-            margin-bottom: 8px; /* Reduced from 10px */
+            margin-bottom: 8px;
             color: #e0e0e0;
         }
         
         .link-url {
-            font-size: 0.9rem; /* Reduced from 1rem */
+            font-size: 0.9rem;
             color: #aaa;
-            margin-bottom: 15px; /* Reduced from 20px */
+            margin-bottom: 15px;
             line-height: 1.4;
         }
         
         /* Audio player styling */
         .music-player-full audio {
             width: 100%;
-            margin-top: 10px; /* Reduced spacing */
+            margin-top: 10px;
             border-radius: 6px;
         }
         
@@ -164,21 +222,21 @@
         /* Message Form Styles */
         .message-form {
             width: 100%;
-            margin-top: 5px; /* Reduced from 10px */
+            margin-top: 5px;
         }
         
         .message-textarea {
             width: 100%;
-            padding: 12px; /* Reduced from 15px */
+            padding: 12px;
             background-color: #2a2a2a;
             border: 1px solid #444;
             border-radius: 6px;
             color: #f5f5f5;
             font-family: inherit;
-            font-size: 0.9rem; /* Reduced from 1rem */
+            font-size: 0.9rem;
             resize: vertical;
-            margin-bottom: 12px; /* Reduced from 15px */
-            min-height: 120px; /* Reduced from 150px */
+            margin-bottom: 12px;
+            min-height: 120px;
             text-align: left;
             direction: ltr;
         }
@@ -198,9 +256,9 @@
             background-color: #3a3a3a;
             color: white;
             border: 1px solid #555;
-            padding: 10px 20px; /* Reduced from 12px 25px */
+            padding: 10px 20px;
             border-radius: 6px;
-            font-size: 0.9rem; /* Reduced from 1rem */
+            font-size: 0.9rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -221,12 +279,12 @@
             display: none;
             background-color: #1a3a1a;
             border: 1px solid #2a5a2a;
-            padding: 12px; /* Reduced from 15px */
+            padding: 12px;
             border-radius: 6px;
-            margin-top: 15px; /* Reduced from 20px */
+            margin-top: 15px;
             color: #aaffaa;
             text-align: center;
-            font-size: 0.9rem; /* Added font size reduction */
+            font-size: 0.9rem;
         }
         
         .success-message.show {
@@ -234,21 +292,50 @@
         }
         
         .footer {
-            margin-top: 40px; /* Reduced from 60px */
+            margin-top: 40px;
             color: #666;
-            font-size: 0.8rem; /* Reduced from 0.9rem */
+            font-size: 0.8rem;
             text-align: center;
             grid-column: 1 / -1;
         }
         
         /* Arabic note styling */
         .arabic-note {
-            font-size: 0.85rem; /* Reduced from 0.95rem */
+            font-size: 0.85rem;
             color: #aaa;
-            margin-bottom: 10px; /* Reduced from 15px */
+            margin-bottom: 10px;
             line-height: 1.4;
             text-align: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Movie Section Styles */
+        .movie-section .link-logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .movie-section .link-logo div {
+            font-size: 2rem;
+        }
+        
+        .message-box .link-logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .message-box .link-logo div {
+            font-size: 2rem;
         }
         
         /* Responsive adjustments */
@@ -262,13 +349,12 @@
             .main-grid {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto auto auto auto;
-                gap: 15px; /* Added gap reduction */
+                gap: 15px;
             }
             
-            .links-column {
+            .social-box {
                 grid-column: 1 / 2;
                 grid-row: 1 / 2;
-                gap: 15px; /* Added gap reduction */
             }
             
             .music-column {
@@ -280,18 +366,23 @@
                 grid-column: 1 / 2;
                 grid-row: 3 / 5;
                 grid-template-columns: 1fr;
-                gap: 15px; /* Added gap reduction */
+                gap: 15px;
+            }
+            
+            .combined-social {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 15px;
+                min-height: auto;
+            }
+            
+            .social-service {
+                padding: 15px 10px;
             }
             
             .link-item {
-                padding: 15px; /* Reduced from 20px */
-                min-height: 180px; /* Reduced from 300px */
-            }
-            
-            .link-logo {
-                width: 50px; /* Reduced from 70px */
-                height: 50px; /* Reduced from 70px */
-                margin-bottom: 10px; /* Reduced from 15px */
+                padding: 15px;
+                min-height: 180px;
             }
         }
         
@@ -303,46 +394,71 @@
             }
             
             .container {
-                padding: 10px; /* Reduced from 20px 15px */
-                margin-top: 40px; /* Reduced */
+                padding: 10px;
+                margin-top: 40px;
+            }
+            
+            .combined-social {
+                padding: 15px 10px;
+            }
+            
+            .social-logo-title {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .social-title {
+                font-size: 1.1rem;
+            }
+            
+            .social-url {
+                font-size: 0.8rem;
             }
             
             .link-item {
                 padding: 15px;
-                min-height: 160px; /* Reduced from 280px */
-            }
-            
-            .link-logo {
-                width: 45px; /* Reduced from 60px */
-                height: 45px; /* Reduced from 60px */
+                min-height: 160px;
             }
             
             .link-title {
-                font-size: 1.2rem; /* Reduced from 1.4rem */
+                font-size: 1.2rem;
             }
             
             .link-url {
-                font-size: 0.85rem; /* Reduced from 0.9rem */
+                font-size: 0.85rem;
             }
             
             .message-textarea {
-                min-height: 100px; /* Reduced from 120px */
-                padding: 10px; /* Reduced from 12px */
-                font-size: 0.85rem; /* Reduced */
+                min-height: 100px;
+                padding: 10px;
+                font-size: 0.85rem;
             }
             
             .submit-btn {
-                padding: 8px 15px; /* Reduced from 10px 20px */
-                font-size: 0.85rem; /* Reduced */
+                padding: 8px 15px;
+                font-size: 0.85rem;
             }
             
             .success-message {
-                padding: 10px; /* Reduced from 12px */
-                font-size: 0.85rem; /* Reduced */
+                padding: 10px;
+                font-size: 0.85rem;
             }
             
             .arabic-note {
-                font-size: 0.8rem; /* Reduced */
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Divider between social services on desktop */
+        .social-service:first-child {
+            border-right: 1px solid #333;
+        }
+        
+        @media (max-width: 768px) {
+            .social-service:first-child {
+                border-right: none;
+                border-bottom: 1px solid #333;
+                padding-bottom: 20px;
             }
         }
     </style>
@@ -352,27 +468,29 @@
     
     <div class="container">
         <div class="main-grid">
-            <!-- Left column: Last.fm & Letterboxd -->
-            <div class="links-column">
-                <a href="https://www.last.fm/user/shrimby" target="_blank" class="link-item">
-                    <div class="link-logo">
-                        <img src="images/lastfm.png" alt="Last.fm Logo">
-                    </div>
-                    <div class="link-content">
-                        <div class="link-title">last.fm</div>
-                        <div class="link-url">https://www.last.fm/user/shrimby</div>
-                    </div>
-                </a>
-                
-                <a href="https://letterboxd.com/1by/" target="_blank" class="link-item">
-                    <div class="link-logo">
-                        <img src="images/letterboxd.png" alt="Letterboxd Logo">
-                    </div>
-                    <div class="link-content">
-                        <div class="link-title">letterboxd</div>
-                        <div class="link-url">https://letterboxd.com/1by/</div>
-                    </div>
-                </a>
+            <!-- Combined Social Box: Last.fm & Letterboxd -->
+            <div class="social-box">
+                <div class="combined-social">
+                    <a href="https://www.last.fm/user/shrimby" target="_blank" class="social-service">
+                        <div class="social-logo-title">
+                            <div class="social-logo">
+                                <img src="images/lastfm.png" alt="Last.fm Logo">
+                            </div>
+                            <div class="social-title">last.fm</div>
+                        </div>
+                        <div class="social-url">https://www.last.fm/user/shrimby</div>
+                    </a>
+                    
+                    <a href="https://letterboxd.com/1by/" target="_blank" class="social-service">
+                        <div class="social-logo-title">
+                            <div class="social-logo">
+                                <img src="images/letterboxd.png" alt="Letterboxd Logo">
+                            </div>
+                            <div class="social-title">letterboxd</div>
+                        </div>
+                        <div class="social-url">https://letterboxd.com/1by/</div>
+                    </a>
+                </div>
             </div>
             
             <!-- Right column: Music Player -->
@@ -415,7 +533,6 @@
                         <div class="link-title">Send Anonymous Message</div>
                         <div class="arabic-note">الرسالة مجهولة، اذا موضوعك يحتاج رد ارفق ايميلك بنفس الرسالة وشكرا</div>
                         
-                        <!-- REPLACE "YOUR_FORM_ID" with your actual Formspree ID -->
                         <form id="message-form" action="https://formspree.io/f/xzznyrar" method="POST" class="message-form">
                             <textarea 
                                 name="message" 
@@ -447,19 +564,19 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const images = document.querySelectorAll('.link-logo img');
+            const images = document.querySelectorAll('img');
             
             images.forEach(img => {
                 img.onerror = function() {
                     console.log('Image failed to load: ' + this.src);
                     
-                    if(!this.parentElement.parentElement.classList.contains('music-player-full') && 
-                       !this.parentElement.parentElement.classList.contains('message-box') &&
-                       !this.parentElement.parentElement.classList.contains('movie-section')) {
+                    // For social logos
+                    if(this.parentElement.classList.contains('social-logo')) {
                         this.style.display = 'none';
-                        this.parentElement.innerHTML = '<div style="font-size: 1.5rem;">🔗</div>';
+                        this.parentElement.innerHTML = '<div style="font-size: 1.2rem;">🔗</div>';
                     }
                     
+                    // For music player
                     if(this.parentElement.parentElement.classList.contains('music-player-full')) {
                         this.style.display = 'none';
                         this.parentElement.innerHTML = '<div style="font-size: 2rem;">🎵</div>';
