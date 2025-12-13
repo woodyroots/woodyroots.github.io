@@ -48,7 +48,7 @@
             margin-top: 30px;
         }
         
-        /* Left column: Combined Last.fm & Letterboxd */
+        /* Left column: All Social Media */
         .social-box {
             grid-column: 1 / 2;
             grid-row: 1 / 2;
@@ -112,42 +112,32 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             height: 100%;
             min-height: 220px;
         }
         
         .social-service {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            text-align: center;
             text-decoration: none;
             color: inherit;
             transition: all 0.3s ease;
-            padding: 15px;
+            padding: 12px 15px;
             border-radius: 8px;
-            flex: 1;
+            width: 100%;
         }
         
         .social-service:hover {
             background-color: #252525;
-            transform: translateY(-2px);
-        }
-        
-        .social-logo-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            width: 100%;
-            justify-content: center;
+            transform: translateX(3px);
         }
         
         .social-logo {
             width: 30px;
             height: 30px;
             flex-shrink: 0;
+            margin-right: 15px;
         }
         
         .social-logo img {
@@ -157,17 +147,22 @@
             border-radius: 4px;
         }
         
-        .social-title {
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: #e0e0e0;
+        .social-content {
+            flex-grow: 1;
+            text-align: left;
         }
         
-        .social-url {
+        .social-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #e0e0e0;
+            margin-bottom: 3px;
+        }
+        
+        .social-handle {
             font-size: 0.85rem;
             color: #aaa;
             line-height: 1.4;
-            word-break: break-all;
         }
         
         /* Music Player Styles */
@@ -373,16 +368,30 @@
             .combined-social {
                 padding: 15px;
                 min-height: auto;
-                gap: 15px;
+                gap: 12px;
             }
             
             .social-service {
-                padding: 15px 10px;
+                padding: 10px 12px;
             }
             
             .link-item {
                 padding: 15px;
                 min-height: 180px;
+            }
+            
+            .social-logo {
+                width: 25px;
+                height: 25px;
+                margin-right: 12px;
+            }
+            
+            .social-title {
+                font-size: 1rem;
+            }
+            
+            .social-handle {
+                font-size: 0.8rem;
             }
         }
         
@@ -399,20 +408,12 @@
             }
             
             .combined-social {
-                padding: 15px 10px;
+                padding: 12px 10px;
+                gap: 10px;
             }
             
-            .social-logo-title {
-                flex-direction: column;
-                gap: 8px;
-            }
-            
-            .social-title {
-                font-size: 1.1rem;
-            }
-            
-            .social-url {
-                font-size: 0.8rem;
+            .social-service {
+                padding: 8px 10px;
             }
             
             .link-item {
@@ -450,9 +451,13 @@
         }
         
         /* Divider between social services */
-        .social-service:first-child {
+        .social-service:not(:last-child) {
             border-bottom: 1px solid #333;
-            padding-bottom: 20px;
+            padding-bottom: 15px;
+        }
+        
+        .social-service:last-child {
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -461,29 +466,62 @@
     
     <div class="container">
         <div class="main-grid">
-            <!-- Combined Social Box: Letterboxd (top) & Last.fm (bottom) -->
+            <!-- Combined Social Box: All Social Media -->
             <div class="social-box">
                 <div class="combined-social">
-                    <!-- Letterboxd on TOP -->
-                    <a href="https://letterboxd.com/1by/" target="_blank" class="social-service">
-                        <div class="social-logo-title">
-                            <div class="social-logo">
-                                <img src="images/letterboxd.png" alt="Letterboxd Logo">
-                            </div>
-                            <div class="social-title">letterboxd</div>
+                    <!-- Instagram -->
+                    <a href="https://instagram.com/metallicocoon" target="_blank" class="social-service">
+                        <div class="social-logo">
+                            <img src="images/instagram old logo.png" alt="Instagram Logo">
                         </div>
-                        <div class="social-url">https://letterboxd.com/1by/</div>
+                        <div class="social-content">
+                            <div class="social-title">instagram</div>
+                            <div class="social-handle">@metallicocoon</div>
+                        </div>
                     </a>
                     
-                    <!-- Last.fm on BOTTOM -->
-                    <a href="https://www.last.fm/user/shrimby" target="_blank" class="social-service">
-                        <div class="social-logo-title">
-                            <div class="social-logo">
-                                <img src="images/lastfm.png" alt="Last.fm Logo">
-                            </div>
-                            <div class="social-title">last.fm</div>
+                    <!-- Twitter -->
+                    <a href="https://twitter.com/metallicocoon" target="_blank" class="social-service">
+                        <div class="social-logo">
+                            <img src="images/twitter.png" alt="Twitter Logo">
                         </div>
-                        <div class="social-url">https://www.last.fm/user/shrimby</div>
+                        <div class="social-content">
+                            <div class="social-title">twitter</div>
+                            <div class="social-handle">@metallicocoon</div>
+                        </div>
+                    </a>
+                    
+                    <!-- Tumblr -->
+                    <a href="https://ducktear.tumblr.com" target="_blank" class="social-service">
+                        <div class="social-logo">
+                            <img src="images/tumblr.png" alt="Tumblr Logo">
+                        </div>
+                        <div class="social-content">
+                            <div class="social-title">tumblr</div>
+                            <div class="social-handle">ducktear</div>
+                        </div>
+                    </a>
+                    
+                    <!-- Letterboxd -->
+                    <a href="https://letterboxd.com/1by/" target="_blank" class="social-service">
+                        <div class="social-logo">
+                            <img src="images/letterboxd.png" alt="Letterboxd Logo">
+                        </div>
+                        <div class="social-content">
+                            <div class="social-title">letterboxd</div>
+                            <div class="social-handle">1by</div>
+                        </div>
+                    </a>
+                    
+                    <!-- Last.fm -->
+                    <a href="https://www.last.fm/user/shrimby" target="_blank" class="social-service">
+                        <div class="social-logo">
+                            <img src="images/lastfm.png" alt="Last.fm Logo">
+                        </div>
+                        <div class="social-content">
+                            <div class="social-title">last.fm</div>
+                            <div class="social-handle">shrimby</div>
+                        </div>
                     </a>
                 </div>
             </div>
