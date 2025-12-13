@@ -3,12 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- TAB TITLE (browser tab shows this) -->
     <title>plastic chair world</title>
-    
-    <!-- TAB LOGO (FAVICON) -->
     <link rel="icon" href="images/lizard.png" type="image/png">
-    
     <style>
         /* Simple, clean, dark theme styling */
         * {
@@ -22,9 +18,6 @@
             background-color: #0a0a0a;
             color: #f5f5f5;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
             line-height: 1.6;
             position: relative;
@@ -42,17 +35,31 @@
         }
         
         .container {
-            max-width: 600px;
+            max-width: 1000px;
             width: 100%;
-            text-align: center;
-            padding: 40px 20px;
+            margin: 80px auto 40px;
+            padding: 0 20px;
         }
         
-        .links {
+        /* Two-column layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        /* Left column - stacked links */
+        .links-column {
             display: flex;
             flex-direction: column;
             gap: 25px;
-            margin-top: 40px;
+        }
+        
+        /* Right column - music player */
+        .music-column {
+            display: flex;
+            flex-direction: column;
         }
         
         .link-item {
@@ -66,6 +73,7 @@
             display: flex;
             align-items: center;
             text-align: left;
+            height: 100%;
         }
         
         a.link-item:hover {
@@ -75,14 +83,17 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .audio-player, .message-box, .movie-section {
+        /* Music player takes full height of column */
+        .music-player-full {
             flex-direction: column;
             text-align: center;
             align-items: center;
             cursor: default;
+            height: 100%;
+            min-height: 100%;
         }
         
-        .audio-player:hover, .message-box:hover, .movie-section:hover {
+        .music-player-full:hover {
             transform: none;
             box-shadow: none;
             background-color: #1a1a1a;
@@ -98,13 +109,11 @@
             justify-content: center;
         }
         
-        .audio-player .link-logo, 
-        .message-box .link-logo,
-        .movie-section .link-logo {
+        .music-player-full .link-logo {
             margin-right: 0;
             margin-bottom: 15px;
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
         }
         
         /* Logos vs cover art */
@@ -116,7 +125,7 @@
         }
         
         /* Specific rule for home movies cover art */
-        .audio-player .link-logo img {
+        .music-player-full .link-logo img {
             object-fit: cover;
             border-radius: 8px;
         }
@@ -139,10 +148,10 @@
             margin-bottom: 10px;
         }
         
-        /* Audio player styling */
-        audio {
+        /* Audio player styling - bigger for the large column */
+        .music-player-full audio {
             width: 100%;
-            margin-top: 10px;
+            margin-top: 15px;
             border-radius: 8px;
         }
         
@@ -162,118 +171,24 @@
             filter: invert(0.8);
         }
         
-        /* Message Form Styles */
-        .message-form {
-            width: 100%;
-            margin-top: 15px;
-        }
-        
-        .message-textarea {
-            width: 100%;
-            padding: 15px;
-            background-color: #2a2a2a;
-            border: 1px solid #444;
-            border-radius: 8px;
-            color: #f5f5f5;
-            font-family: inherit;
-            font-size: 1rem;
-            resize: vertical;
-            margin-bottom: 15px;
-            min-height: 120px;
-        }
-        
-        .message-textarea:focus {
-            outline: none;
-            border-color: #666;
-            box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
-        }
-        
-        .message-textarea::placeholder {
-            color: #777;
-        }
-        
-        .submit-btn {
-            background-color: #3a3a3a;
-            color: white;
-            border: 1px solid #555;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            width: 100%;
-        }
-        
-        .submit-btn:hover {
-            background-color: #4a4a4a;
-            border-color: #666;
-        }
-        
-        .submit-btn:active {
-            transform: translateY(1px);
-        }
-        
-        /* Success message styling */
-        .success-message {
-            display: none;
-            background-color: #1a3a1a;
-            border: 1px solid #2a5a2a;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            color: #aaffaa;
-        }
-        
-        .success-message.show {
-            display: block;
-        }
-        
-        /* Movie Link Styling */
-        .movie-links {
+        /* Make music player content fill available space */
+        .music-player-full .link-content {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin: 15px 0;
-            width: 100%;
+            height: 100%;
+            justify-content: space-between;
         }
         
-        .movie-link {
-            display: block;
-            background-color: #2a2a2a;
-            color: #fff;
-            padding: 12px 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            text-align: center;
-            border: 1px solid #444;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-        }
-        
-        .movie-link:hover {
-            background-color: #3a3a3a;
-            border-color: #666;
-            transform: translateY(-2px);
-        }
-        
-        .movie-info {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #333;
-            color: #aaa;
-            font-size: 0.85rem;
-            text-align: left;
-        }
-        
-        .movie-info p {
-            margin: 5px 0;
+        .music-info {
+            flex-grow: 1;
         }
         
         .footer {
             margin-top: 60px;
             color: #666;
             font-size: 0.9rem;
+            text-align: center;
+            grid-column: 1 / -1;
         }
         
         /* Responsive adjustments */
@@ -282,6 +197,11 @@
                 font-size: 1.6rem;
                 top: 20px;
                 left: 20px;
+            }
+            
+            .main-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
             
             .link-item {
@@ -294,11 +214,13 @@
                 margin-right: 15px;
             }
             
-            .audio-player .link-logo, 
-            .message-box .link-logo,
-            .movie-section .link-logo {
-                width: 55px;
-                height: 55px;
+            .music-player-full .link-logo {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .music-player-full {
+                min-height: 300px;
             }
         }
         
@@ -335,15 +257,9 @@
                 font-size: 0.85rem;
             }
             
-            .audio-player .link-logo, 
-            .message-box .link-logo,
-            .movie-section .link-logo {
-                width: 70px;
-                height: 70px;
-            }
-            
-            .message-textarea {
-                min-height: 100px;
+            .music-player-full .link-logo {
+                width: 80px;
+                height: 80px;
             }
         }
     </style>
@@ -353,99 +269,57 @@
     <div class="site-title">woody's blog</div>
     
     <div class="container">
-        <!-- Links and content stay centered -->
-        <div class="links">
-            <!-- Last.fm Profile Link -->
-            <a href="https://www.last.fm/user/shrimby" target="_blank" class="link-item">
-                <div class="link-logo">
-                    <img src="images/lastfm.png" alt="Last.fm Logo">
-                </div>
-                <div class="link-content">
-                    <div class="link-title">last.fm</div>
-                    <div class="link-url">https://www.last.fm/user/shrimby</div>
-                </div>
-            </a>
-            
-            <!-- Letterboxd Profile Link -->
-            <a href="https://letterboxd.com/1by/" target="_blank" class="link-item">
-                <div class="link-logo">
-                    <img src="images/letterboxd.png" alt="Letterboxd Logo">
-                </div>
-                <div class="link-content">
-                    <div class="link-title">letterboxd</div>
-                    <div class="link-url">https://letterboxd.com/1by/</div>
-                </div>
-            </a>
-            
-            <!-- MP3 Player Section -->
-            <div class="link-item audio-player">
-                <div class="link-logo">
-                    <!-- Home Movies image -->
-                    <img src="images/home movies.jpg" alt="Home Movies Cover">
-                </div>
-                <div class="link-content">
-                    <div class="link-title">Brendon's Camera</div>
-                    <div class="link-url">Home Movies Bonus CD-51</div>
-                    
-                    <!-- Audio Player -->
-                    <audio controls>
-                        <source src="music/Home Movies Bonus CD-51-Brendon's Camera.MP3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
+        <!-- Two-column layout -->
+        <div class="main-grid">
+            <!-- Left column - Stacked links -->
+            <div class="links-column">
+                <!-- Last.fm Profile Link -->
+                <a href="https://www.last.fm/user/shrimby" target="_blank" class="link-item">
+                    <div class="link-logo">
+                        <img src="images/lastfm.png" alt="Last.fm Logo">
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">last.fm</div>
+                        <div class="link-url">https://www.last.fm/user/shrimby</div>
+                    </div>
+                </a>
+                
+                <!-- Letterboxd Profile Link -->
+                <a href="https://letterboxd.com/1by/" target="_blank" class="link-item">
+                    <div class="link-logo">
+                        <img src="images/letterboxd.png" alt="Letterboxd Logo">
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">letterboxd</div>
+                        <div class="link-url">https://letterboxd.com/1by/</div>
+                    </div>
+                </a>
             </div>
             
-            <!-- Movie Link Section -->
-            <a href="https://drive.google.com/file/d/1kiloXXQf_wXbBByNwWrw4nJNYfWYjK0J/view" target="_blank" class="link-item movie-section">
-                <div class="link-logo">
-                    <div style="font-size: 2rem;">🎬</div>
-                </div>
-                <div class="link-content">
-                    <div class="link-title">Today's Movie</div>
-                    <div class="link-url">Click to watch → The Grand Budapest Hotel</div>
-                </div>
-            </a>
-            
-            <!-- Formspree Message Box -->
-            <div class="link-item message-box">
-                <div class="link-logo">
-                    <div style="font-size: 2rem;">✉️</div>
-                </div>
-                <div class="link-content">
-                    <div class="link-title">Send Anonymous Message</div>
-                    
-                    <!-- REPLACE "YOUR_FORM_ID" with your actual Formspree ID -->
-                    <form id="message-form" action="https://formspree.io/f/xzznyrar" method="POST" class="message-form">
-                        <textarea 
-                            name="message" 
-                            placeholder="Type your anonymous message here..." 
-                            required
-                            rows="4"
-                            class="message-textarea"
-                        ></textarea>
-                        
-                        <!-- Honeypot field for spam prevention -->
-                        <input type="text" name="_gotcha" style="display:none;">
-                        
-                        <!-- Redirect after submission -->
-                        <input type="hidden" name="_next" value="#success">
-                        
-                        <button type="submit" class="submit-btn">
-                            Send Anonymously
-                        </button>
-                    </form>
-                    
-                    <!-- Success message (hidden by default) -->
-                    <div id="success-message" class="success-message">
-                        <h3>✅ Message Sent!</h3>
-                        <p>Your anonymous message has been delivered.</p>
+            <!-- Right column - Full height music player -->
+            <div class="music-column">
+                <div class="link-item music-player-full">
+                    <div class="link-logo">
+                        <img src="images/home movies.jpg" alt="Home Movies Cover">
+                    </div>
+                    <div class="link-content">
+                        <div class="music-info">
+                            <div class="link-title">Brendon's Camera</div>
+                            <div class="link-url">Home Movies Bonus CD-51</div>
+                            
+                            <!-- Audio Player -->
+                            <audio controls>
+                                <source src="music/Home Movies Bonus CD-51-Brendon's Camera.MP3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         
         <div class="footer">
-            <!-- Add more links or a description here later -->
+            <!-- Optional: Add something here later -->
         </div>
     </div>
     
@@ -459,17 +333,15 @@
                     console.log('Image failed to load: ' + this.src);
                     
                     // Link logo fallback
-                    if(!this.parentElement.parentElement.classList.contains('audio-player') && 
-                       !this.parentElement.parentElement.classList.contains('message-box') &&
-                       !this.parentElement.parentElement.classList.contains('movie-section')) {
+                    if(!this.parentElement.parentElement.classList.contains('music-player-full')) {
                         this.style.display = 'none';
                         this.parentElement.innerHTML = '<div style="font-size: 1.5rem;">🔗</div>';
                     }
                     
-                    // Audio player cover fallback
-                    if(this.parentElement.parentElement.classList.contains('audio-player')) {
+                    // Music player cover fallback
+                    if(this.parentElement.parentElement.classList.contains('music-player-full')) {
                         this.style.display = 'none';
-                        this.parentElement.innerHTML = '<div style="font-size: 2rem;">🎵</div>';
+                        this.parentElement.innerHTML = '<div style="font-size: 2.5rem;">🎵</div>';
                     }
                 };
             });
@@ -486,64 +358,26 @@
                 });
             }
             
-            // Form submission handling
-            const messageForm = document.getElementById('message-form');
-            const successMessage = document.getElementById('success-message');
-            
-            if(messageForm) {
-                messageForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    
-                    const submitBtn = this.querySelector('.submit-btn');
-                    const originalText = submitBtn.textContent;
-                    
-                    // Show loading state
-                    submitBtn.textContent = 'Sending...';
-                    submitBtn.disabled = true;
-                    
-                    try {
-                        const formData = new FormData(this);
-                        const response = await fetch(this.action, {
-                            method: 'POST',
-                            body: formData,
-                            headers: {
-                                'Accept': 'application/json'
-                            }
-                        });
-                        
-                        if(response.ok) {
-                            // Show success message
-                            successMessage.classList.add('show');
-                            messageForm.reset();
-                            
-                            // Hide success message after 5 seconds
-                            setTimeout(() => {
-                                successMessage.classList.remove('show');
-                            }, 5000);
-                        } else {
-                            alert('Failed to send message. Please try again.');
-                        }
-                    } catch(error) {
-                        console.error('Form submission error:', error);
-                        alert('Failed to send message. Please try again.');
-                    } finally {
-                        // Restore button
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                    }
-                });
-            }
-            
-            // Show success message if URL hash is #success
-            if(window.location.hash === '#success') {
-                successMessage.classList.add('show');
+            // Make the music player column match the height of the links column
+            function adjustMusicPlayerHeight() {
+                const linksColumn = document.querySelector('.links-column');
+                const musicColumn = document.querySelector('.music-column');
                 
-                // Remove hash from URL without reloading
-                history.replaceState(null, null, ' ');
+                if(linksColumn && musicColumn && window.innerWidth > 768) {
+                    const linksHeight = linksColumn.offsetHeight;
+                    musicColumn.style.height = linksHeight + 'px';
+                } else if(musicColumn) {
+                    musicColumn.style.height = 'auto';
+                }
             }
+            
+            // Adjust on load and resize
+            window.addEventListener('load', adjustMusicPlayerHeight);
+            window.addEventListener('resize', adjustMusicPlayerHeight);
+            
+            // Initial adjustment
+            setTimeout(adjustMusicPlayerHeight, 100);
         });
     </script>
 </body>
 </html>
-
-
