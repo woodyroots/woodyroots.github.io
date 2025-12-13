@@ -766,6 +766,87 @@
             window.addEventListener('scroll', highlightCurrentSection);
             highlightCurrentSection(); // Initial call
         });
+        // Function to extract video ID from YouTube URL
+function getVideoId(url) {
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
+    return match ? match[1] : null;
+}
+
+// Function to fetch video title from YouTube
+async function fetchVideoTitle(videoId) {
+    try {
+        // Try multiple methods to get the title
+        const methods = [
+            // Method 1: YouTube oEmbed API
+            fetch(`https://www.youtube.com/oembed?url=https://youtube.com/watch?v=${videoId}&format=json`)
+                .then(res => res.ok ? res.json() : Promise.reject('Method 1 failed')),
+            
+            // Method 2: noembed.com fallback
+            fetch(`https://noembed.com/embed?url=https://youtube.com/watch?v=${videoId}`)
+                .then(res => res.ok ? res.json() : Promise.reject('Method 2 failed'))
+        ];
+
+        const response = await Promise.any(methods);
+        return response.title || `YouTube Video (${videoId})`;
+    } catch (error) {
+        console.log(`Couldn't fetch title for video ${videoId}:`, error);
+        return `YouTube Video (${videoId})`;
+    }
+}
+
+// Function to update all video titles
+async function updateVideoTitles() {
+    const videoItems = document.querySelectorAll('.video-item');
+    
+    for (const item of videoItems) {
+        const iframe = item.querySelector('iframe');
+        const titleElement = item.querySelector('.video-title');
+        
+        if (!iframe || !titleElement) continue;
+        
+        const videoId = getVideoId(iframe.src);
+        if (!videoId) continue;
+        
+        // Show loading text
+        titleElement.textContent = 'Loading...';
+        titleElement.style.color = '#666';
+        titleElement.style.fontStyle = 'italic';
+        
+        try {
+            const title = await fetchVideoTitle(videoId);
+            titleElement.textContent = title;
+            titleElement.style.color = ''; // Reset to default
+            titleElement.style.fontStyle = ''; // Reset to default
+            
+            // Truncate long titles
+            if (title.length > 60) {
+                titleElement.textContent = title.substring(0, 57) + '...';
+            }
+        } catch (error) {
+            titleElement.textContent = `Video (${videoId.substring(0, 8)}...)`;
+            titleElement.style.color = '#888';
+        }
+        
+        // Add a small delay to avoid rate limiting
+        await new Promise(resolve => setTimeout(resolve, 300));
+    }
+}
+
+// Run when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Update video titles after a short delay
+    setTimeout(updateVideoTitles, 1000);
+    
+    // Also update titles when switching back to the music section
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (this.textContent.includes('music')) {
+                setTimeout(updateVideoTitles, 500);
+            }
+        });
+    });
+});
     </script>
 </body>
 </html>
