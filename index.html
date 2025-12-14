@@ -124,13 +124,13 @@
             background-color: rgba(20, 20, 20, 0.5);
         }
         
-      /* Social Grid - Now 3 columns */
-.social-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    gap: 20px;
-    margin: 30px 0;
-}
+        /* Social Grid - Fixed layout */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            gap: 20px;
+            margin: 30px 0;
+        }
         
         .social-item {
             background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
@@ -144,6 +144,7 @@
             color: inherit;
             position: relative;
             overflow: hidden;
+            min-height: 100px;
         }
         
         .social-item:nth-child(odd) {
@@ -490,14 +491,14 @@
     <div class="floating-element floating-2"></div>
     <div class="floating-element floating-3"></div>
     
-    <!-- Navigation -->
+    <!-- Navigation - FIXED -->
     <nav class="nav-bar">
-        <div class="site-title">woody roots</div> <!-- CURSOR REMOVED HERE -->
+        <div class="site-title">woody roots</div>
         <div class="nav-links">
             <a href="#social" class="nav-link">/social</a>
             <a href="#media" class="nav-link">/media</a>
             <a href="#message" class="nav-link">/message</a>
-           <a href="/favorites/" class="nav-link external">
+            <a href="/favorites/" class="nav-link">/favorites</a> <!-- FIXED: Added proper link -->
         </div>
     </nav>
     
@@ -509,78 +510,78 @@
                 > digital cocoon | plastic chair enthusiast<br>
                 > collecting moments across platforms<br>
                 > currently: listening, watching, existing<br>
-                <span style="color: #888;">user@metallicocoon:~$</span> <span class="cursor"></span> <!-- CURSOR KEPT HERE -->
+                <span style="color: #888;">user@metallicocoon:~$</span> <span class="cursor"></span>
             </div>
         </section>
         
-        <!-- Social Grid -->
+        <!-- Social Grid - FIXED: Removed extra closing tag -->
         <section id="social" class="social-grid">
-    <!-- Instagram -->
-    <a href="https://instagram.com/metallicocoon" target="_blank" class="social-item glass">
-        <div class="social-logo">
-            <img src="images/instagram old logo.png" alt="Instagram">
-        </div>
-        <div class="social-info">
-            <div class="social-name">instagram</div>
-            <div class="social-handle">@metallicocoon</div>
-        </div>
-    </a>
-    
-    <!-- Twitter -->
-    <a href="https://twitter.com/metallicocoon" target="_blank" class="social-item glass">
-        <div class="social-logo">
-            <img src="images/twitter.png" alt="Twitter">
-        </div>
-        <div class="social-info">
-            <div class="social-name">twitter</div>
-            <div class="social-handle">@metallicocoon</div>
-        </div>
-    </a>
-    
-    <!-- Letterboxd -->
-    <a href="https://letterboxd.com/1by/" target="_blank" class="social-item glass">
-        <div class="social-logo">
-            <img src="images/letterboxd.png" alt="Letterboxd">
-        </div>
-        <div class="social-info">
-            <div class="social-name">letterboxd</div>
-            <div class="social-handle">1by</div>
-        </div>
-    </a>
-    
-    <!-- Last.fm -->
-    <a href="https://www.last.fm/user/shrimby" target="_blank" class="social-item glass">
-        <div class="social-logo">
-            <img src="images/lastfm.png" alt="Last.fm">
-        </div>
-        <div class="social-info">
-            <div class="social-name">last.fm</div>
-            <div class="social-handle">shrimby</div>
-        </div>
-    </a>
-    
-    <!-- GOG.com -->
-    <a href="https://www.gog.com/u/woodyroot" target="_blank" class="social-item glass">
-        <div class="social-logo">
-            <img src="images/gog.png" alt="GOG Logo">
-        </div>
-        <div class="social-info">
-            <div class="social-name">gog</div>
-            <div class="social-handle">woodyroot</div>
-        </div>
-    </a>
+            <!-- Instagram -->
+            <a href="https://instagram.com/metallicocoon" target="_blank" class="social-item glass">
+                <div class="social-logo">
+                    <img src="images/instagram old logo.png" alt="Instagram">
+                </div>
+                <div class="social-info">
+                    <div class="social-name">instagram</div>
+                    <div class="social-handle">@metallicocoon</div>
+                </div>
+            </a>
+            
+            <!-- Twitter -->
+            <a href="https://twitter.com/metallicocoon" target="_blank" class="social-item glass">
+                <div class="social-logo">
+                    <img src="images/twitter.png" alt="Twitter">
+                </div>
+                <div class="social-info">
+                    <div class="social-name">twitter</div>
+                    <div class="social-handle">@metallicocoon</div>
+                </div>
+            </a>
+            
+            <!-- Letterboxd -->
+            <a href="https://letterboxd.com/1by/" target="_blank" class="social-item glass">
+                <div class="social-logo">
+                    <img src="images/letterboxd.png" alt="Letterboxd">
+                </div>
+                <div class="social-info">
+                    <div class="social-name">letterboxd</div>
+                    <div class="social-handle">1by</div>
+                </div>
+            </a>
+            
+            <!-- Last.fm -->
+            <a href="https://www.last.fm/user/shrimby" target="_blank" class="social-item glass">
+                <div class="social-logo">
+                    <img src="images/lastfm.png" alt="Last.fm">
+                </div>
+                <div class="social-info">
+                    <div class="social-name">last.fm</div>
+                    <div class="social-handle">shrimby</div>
+                </div>
+            </a>
+            
+            <!-- GOG.com -->
+            <a href="https://www.gog.com/u/woodyroot" target="_blank" class="social-item glass">
+                <div class="social-logo">
+                    <img src="images/gog.png" alt="GOG Logo">
+                </div>
+                <div class="social-info">
+                    <div class="social-name">gog</div>
+                    <div class="social-handle">woodyroot</div>
+                </div>
+            </a>
+            
             <!-- Discord Server -->
-<a href="https://discord.gg/t26TUdzZPK" target="_blank" class="social-item glass">
-    <div class="social-logo">
-        <img src="images/plastic.jpg" alt="Discord Server">
-    </div>
-    <div class="social-info">
-        <div class="social-name">plastic chair server</div>
-        <div class="social-handle">discord.gg/t26TUdzZPK</div>
-    </div>
-</a>
-</section>
-        </section>
+            <a href="https://discord.gg/t26TUdzZPK" target="_blank" class="social-item glass">
+                <div class="social-logo">
+                    <img src="images/plastic.jpg" alt="Discord Server">
+                </div>
+                <div class="social-info">
+                    <div class="social-name">plastic chair server</div>
+                    <div class="social-handle">discord.gg/t26TUdzZPK</div>
+                </div>
+            </a>
+        </section> <!-- REMOVED the extra closing section tag here -->
         
         <!-- Media Section -->
         <section id="media" class="media-section">
@@ -673,12 +674,14 @@
                     const parent = this.parentElement;
                     
                     if(parent.classList.contains('social-logo')) {
-                        const platform = parent.nextElementSibling.querySelector('.social-name').textContent;
+                        const platform = parent.nextElementSibling.querySelector('.social-name').textContent.toLowerCase();
                         const emojiMap = {
                             'instagram': '📷',
                             'twitter': '🐦',
                             'letterboxd': '🎞️',
-                            'last.fm': '🎵'
+                            'last.fm': '🎵',
+                            'gog': '🎮',
+                            'plastic chair server': '💺'
                         };
                         parent.innerHTML = `<div style="font-size: 1.5rem;">${emojiMap[platform] || '🔗'}</div>`;
                     }
@@ -760,26 +763,26 @@
                 history.replaceState(null, null, ' ');
             }
             
-           // Smooth scrolling for nav links (only for internal page links)
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href');
-        
-        // Only prevent default and scroll if it's an internal link (starts with #)
-        if(targetId.startsWith('#')) {
-            e.preventDefault();
-            const targetElement = document.querySelector(targetId);
-            
-            if(targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 100,
-                    behavior: 'smooth'
+            // Smooth scrolling for nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    
+                    // Only prevent default and scroll if it's an internal link (starts with #)
+                    if(targetId.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if(targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 100,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
                 });
-            }
-        }
-        // If it's not an internal link (like favorites.html), let it navigate normally
-    });
-});
+            });
+            
             // Add subtle hover effects to media cards
             document.querySelectorAll('.media-card').forEach(card => {
                 card.addEventListener('mouseenter', function() {
@@ -801,14 +804,3 @@ document.querySelectorAll('.nav-link').forEach(link => {
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
