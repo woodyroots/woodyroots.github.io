@@ -3,937 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>woody roots | plastic chair world</title>
+    <title>woody roots</title>
     <link rel="icon" href="images/lizard.png" type="image/png">
     <style>
-        /* Color Variables */
-        :root {
-            --manhattan: #f5d48c;    /* Primary text/accents */
-            --asphalt: #0e0306;       /* Main background */
-            --brown-derby: #4a1c16;   /* Secondary/UI elements */
-            --derby-light: #5e2a20;   /* Hover states */
-            --derby-dark: #3a1610;    /* Borders/deep accents */
-            --asphalt-light: #1a0a0d; /* Cards/containers */
-        }
+        /* RESET */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-        
+        /* BASE */
         body {
-            background-color: var(--asphalt);
-            color: var(--manhattan);
-            min-height: 100vh;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(245, 212, 140, 0.03) 0%, transparent 30%),
-                radial-gradient(circle at 80% 70%, rgba(74, 28, 22, 0.05) 0%, transparent 30%);
-        }
-        
-        /* Typography */
-        h1, h2, h3, h4 {
+            background: #0e0306;
+            color: #f5d48c;
             font-family: 'Courier New', monospace;
-            font-weight: 300;
-            letter-spacing: 1px;
+            line-height: 1.6;
+            padding: 20px;
         }
         
-        /* Terminal cursor */
-        .cursor {
-            display: inline-block;
-            width: 8px;
-            height: 18px;
-            background-color: var(--manhattan);
-            animation: blink 1s infinite;
-            vertical-align: middle;
-            margin-left: 4px;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        
-        /* Navigation - Minimal & Fixed */
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 40px;
+        /* NAV */
+        nav {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            background-color: rgba(14, 3, 6, 0.92);
-            backdrop-filter: blur(12px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(245, 212, 140, 0.1);
+            padding: 20px 0;
+            border-bottom: 1px solid #4a1c16;
+            margin-bottom: 40px;
         }
         
-        .site-title {
-            font-size: 1.4rem;
-            letter-spacing: 3px;
-            color: var(--manhattan);
-            text-transform: uppercase;
-            font-family: 'Courier New', monospace;
-            opacity: 0.9;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .nav-link {
-            color: rgba(245, 212, 140, 0.7);
+        nav a {
+            color: #f5d48c;
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 8px 0;
-            text-transform: lowercase;
-            font-family: 'Courier New', monospace;
+            margin-left: 20px;
         }
         
-        .nav-link:hover {
-            color: var(--manhattan);
+        nav a:hover {
+            text-decoration: underline;
         }
         
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background-color: var(--manhattan);
-            transition: width 0.3s ease;
+        /* TERMINAL */
+        .terminal {
+            background: #1a0a0d;
+            border: 1px solid #4a1c16;
+            padding: 20px;
+            margin-bottom: 40px;
         }
         
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .nav-link.active {
-            color: var(--manhattan);
-        }
-        
-        /* Main Container */
-        .main-container {
-            max-width: 1400px;
-            margin: 100px auto 60px;
-            padding: 0 40px;
-        }
-        
-        /* Hero Section */
-        .hero-section {
-            text-align: center;
-            padding: 80px 0 60px;
-            position: relative;
-        }
-        
-        .hero-title {
-            font-size: 4rem;
-            color: var(--manhattan);
-            margin-bottom: 20px;
-            font-weight: 300;
-            letter-spacing: 4px;
-            text-transform: lowercase;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: rgba(245, 212, 140, 0.8);
-            max-width: 600px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .terminal-prompt {
-            display: inline-block;
-            background: rgba(74, 28, 22, 0.3);
-            border: 1px solid rgba(245, 212, 140, 0.2);
-            padding: 20px 30px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            color: rgba(245, 212, 140, 0.9);
-            font-size: 1.1rem;
-            text-align: left;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .prompt-line {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .prompt-arrow {
-            color: #f5a623;
-        }
-        
-        /* Social Grid - Modern Cards */
+        /* SOCIAL GRID */
         .social-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin: 60px 0;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 40px 0;
         }
         
-        .social-card {
-            background: var(--asphalt-light);
-            border: 1px solid rgba(245, 212, 140, 0.1);
-            border-radius: 12px;
-            padding: 25px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .social-item {
+            background: #1a0a0d;
+            border: 1px solid #4a1c16;
+            padding: 15px;
             text-decoration: none;
             color: inherit;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            min-height: 120px;
         }
         
-        .social-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--manhattan);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        .social-item:hover {
+            border-color: #f5d48c;
         }
         
-        .social-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(245, 212, 140, 0.3);
-            box-shadow: 0 15px 30px rgba(14, 3, 6, 0.5);
-            background: var(--brown-derby);
-        }
-        
-        .social-card:hover::before {
-            opacity: 1;
-        }
-        
-        .social-logo {
-            width: 50px;
-            height: 50px;
-            flex-shrink: 0;
-            background: rgba(245, 212, 140, 0.1);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            border: 1px solid rgba(245, 212, 140, 0.1);
-        }
-        
-        .social-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: sepia(1) hue-rotate(340deg) saturate(2);
-        }
-        
-        .social-info {
-            flex-grow: 1;
-        }
-        
-        .social-name {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-            color: var(--manhattan);
-            font-weight: 500;
-        }
-        
-        .social-handle {
-            font-size: 0.9rem;
-            color: rgba(245, 212, 140, 0.7);
-            font-family: 'Courier New', monospace;
-        }
-        
-        /* Media Section */
-        .media-section {
+        /* MEDIA */
+        .media-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 60px 0;
+            gap: 20px;
+            margin: 40px 0;
         }
         
-        .media-panel {
-            background: var(--asphalt-light);
-            border: 1px solid rgba(245, 212, 140, 0.1);
-            border-radius: 12px;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .media-panel::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 60px;
-            height: 60px;
-            background: var(--derby-dark);
-            border-radius: 0 0 0 100%;
-            opacity: 0.5;
-        }
-        
-        .panel-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .panel-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(245, 212, 140, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--manhattan);
-        }
-        
-        .panel-title {
-            font-size: 1.5rem;
-            color: var(--manhattan);
-        }
-        
-        /* Music Player */
-        .now-playing {
-            font-size: 0.9rem;
-            color: rgba(245, 212, 140, 0.7);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .track-name {
-            font-size: 1.8rem;
-            color: var(--manhattan);
-            margin-bottom: 20px;
-            font-weight: 300;
-        }
-        
-        /* Custom Audio Player */
-        audio {
-            width: 100%;
-            margin-top: 15px;
-        }
-        
-        audio::-webkit-media-controls-panel {
-            background-color: var(--derby-dark);
-            border-radius: 0;
-        }
-        
-        audio::-webkit-media-controls-play-button {
-            background-color: var(--manhattan);
-            border-radius: 50%;
-        }
-        
-        audio::-webkit-media-controls-current-time-display,
-        audio::-webkit-media-controls-time-remaining-display {
-            color: var(--manhattan);
-        }
-        
-        /* Movie Card */
-        .movie-title {
-            font-size: 1.8rem;
-            color: var(--manhattan);
-            margin-bottom: 5px;
-            font-weight: 300;
-        }
-        
-        .movie-year {
-            font-size: 1rem;
-            color: rgba(245, 212, 140, 0.7);
-            margin-bottom: 20px;
-        }
-        
-        .watch-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--brown-derby);
-            color: var(--manhattan);
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 6px;
-            border: 1px solid rgba(245, 212, 140, 0.2);
-            transition: all 0.3s ease;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .watch-link:hover {
-            background: var(--derby-light);
-            transform: translateX(5px);
-        }
-        
-        /* Message Terminal */
-        .terminal-section {
-            background: var(--asphalt-light);
-            border: 1px solid rgba(245, 212, 140, 0.1);
-            border-radius: 12px;
-            padding: 35px;
-            margin-top: 60px;
-            position: relative;
-        }
-        
-        .terminal-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(245, 212, 140, 0.1);
-        }
-        
-        .terminal-dots {
-            display: flex;
-            gap: 6px;
-        }
-        
-        .terminal-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        
-        .dot-red { background: #ff5f56; }
-        .dot-yellow { background: #ffbd2e; }
-        .dot-green { background: #27ca3f; }
-        
-        .terminal-title {
-            color: rgba(245, 212, 140, 0.9);
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-        
-        .arabic-note {
-            background: rgba(74, 28, 22, 0.3);
-            border-left: 3px solid var(--manhattan);
-            padding: 15px;
-            margin-bottom: 25px;
-            color: rgba(245, 212, 140, 0.8);
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            font-size: 1rem;
-            line-height: 1.6;
-            border-radius: 0 5px 5px 0;
-        }
-        
-        .message-form {
-            margin-top: 20px;
-        }
-        
-        .message-textarea {
-            width: 100%;
+        .media-card {
+            background: #1a0a0d;
+            border: 1px solid #4a1c16;
             padding: 20px;
-            background: rgba(14, 3, 6, 0.5);
-            border: 1px solid rgba(245, 212, 140, 0.2);
-            color: var(--manhattan);
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
-            resize: vertical;
-            min-height: 150px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            transition: border 0.3s ease;
         }
         
-        .message-textarea:focus {
-            outline: none;
-            border-color: var(--manhattan);
+        /* FORM */
+        .message-box {
+            background: #1a0a0d;
+            border: 1px solid #4a1c16;
+            padding: 20px;
+            margin: 40px 0;
         }
         
-        .submit-btn {
-            background: var(--brown-derby);
-            color: var(--manhattan);
-            border: 1px solid rgba(245, 212, 140, 0.2);
-            padding: 15px 40px;
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
+        textarea {
+            width: 100%;
+            background: #0e0306;
+            border: 1px solid #4a1c16;
+            color: #f5d48c;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-family: inherit;
+        }
+        
+        button {
+            background: #4a1c16;
+            color: #f5d48c;
+            border: 1px solid #4a1c16;
+            padding: 10px 20px;
+            font-family: inherit;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: block;
-            width: 100%;
-            border-radius: 6px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
         
-        .submit-btn:hover {
-            background: var(--derby-light);
-            transform: translateY(-2px);
+        button:hover {
+            background: #5e2a20;
         }
         
-        .success-message {
-            display: none;
-            background: rgba(94, 42, 32, 0.5);
-            border: 1px solid rgba(245, 212, 140, 0.3);
-            padding: 20px;
-            margin-top: 20px;
-            color: var(--manhattan);
+        /* FOOTER */
+        footer {
             text-align: center;
-            border-radius: 6px;
+            padding: 20px 0;
+            border-top: 1px solid #4a1c16;
+            margin-top: 40px;
+            color: rgba(245, 212, 140, 0.7);
         }
         
-        .success-message.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Footer */
-        .footer {
-            margin-top: 80px;
-            padding: 40px 0;
-            border-top: 1px solid rgba(245, 212, 140, 0.1);
-            text-align: center;
-            color: rgba(245, 212, 140, 0.5);
-            font-size: 0.9rem;
-        }
-        
-        .footer-title {
-            font-size: 1.2rem;
-            color: var(--manhattan);
-            margin-bottom: 15px;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 2px;
-        }
-        
-        /* Floating elements */
-        .floating-elements {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .floating-square {
-            position: absolute;
-            border: 1px solid rgba(245, 212, 140, 0.05);
-            width: 80px;
-            height: 80px;
-            animation: float 20s infinite linear;
-        }
-        
-        .square-1 {
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-        
-        .square-2 {
-            bottom: 30%;
-            right: 10%;
-            animation-delay: -5s;
-            animation-duration: 25s;
-        }
-        
-        .square-3 {
-            top: 40%;
-            right: 20%;
-            animation-delay: -10s;
-            animation-duration: 30s;
-        }
-        
-        @keyframes float {
-            0% { transform: rotate(0deg) translate(0, 0); }
-            25% { transform: rotate(90deg) translate(10px, 10px); }
-            50% { transform: rotate(180deg) translate(0, 20px); }
-            75% { transform: rotate(270deg) translate(-10px, 10px); }
-            100% { transform: rotate(360deg) translate(0, 0); }
-        }
-        
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-            
-            .media-section {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            
-            .main-container {
-                padding: 0 30px;
-            }
-        }
-        
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .nav-bar {
-                padding: 15px 20px;
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .nav-links {
-                gap: 20px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .main-container {
-                margin-top: 140px;
-                padding: 0 20px;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.1rem;
-                padding: 0 20px;
-            }
-            
-            .social-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .terminal-prompt {
-                font-size: 1rem;
-                padding: 15px 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .panel-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            
-            .track-name, .movie-title {
-                font-size: 1.5rem;
-            }
-            
-            .terminal-section {
-                padding: 25px 20px;
-            }
+            .social-grid { grid-template-columns: 1fr; }
+            .media-grid { grid-template-columns: 1fr; }
+            nav { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
 <body>
-    <!-- Floating Background Elements -->
-    <div class="floating-elements">
-        <div class="floating-square square-1"></div>
-        <div class="floating-square square-2"></div>
-        <div class="floating-square square-3"></div>
-    </div>
-    
     <!-- Navigation -->
-    <nav class="nav-bar">
-        <div class="site-title">woody roots</div>
-        <div class="nav-links">
-            <a href="#social" class="nav-link">/social</a>
-            <a href="#media" class="nav-link">/media</a>
-            <a href="#message" class="nav-link">/message</a>
-            <a href="/favorites/" class="nav-link">/favorites</a>
+    <nav>
+        <div>woody roots</div>
+        <div>
+            <a href="#social">social</a>
+            <a href="#media">media</a>
+            <a href="#message">message</a>
+            <a href="/favorites/">favorites</a>
         </div>
     </nav>
     
-    <div class="main-container">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <h1 class="hero-title">plastic chair world</h1>
-            <p class="hero-subtitle">digital cocoon · collector of moments · currently existing</p>
-            
-            <div class="terminal-prompt">
-                <div class="prompt-line">
-                    <span class="prompt-arrow">➜</span>
-                    <span>cat about.txt</span>
-                </div>
-                <div class="prompt-line">
-                    <span style="margin-left: 20px;">> metallicocoon terminal v2.0</span>
-                </div>
-                <div class="prompt-line">
-                    <span style="margin-left: 20px;">> plastic chair enthusiast since 1995</span>
-                </div>
-                <div class="prompt-line">
-                    <span style="margin-left: 20px;">> current status: listening, watching, being</span>
-                </div>
-                <div class="prompt-line">
-                    <span class="prompt-arrow">➜</span>
-                    <span>_</span><span class="cursor"></span>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Social Grid -->
-        <section id="social" class="social-grid">
-            <!-- Instagram -->
-            <a href="https://instagram.com/metallicocoon" target="_blank" class="social-card">
-                <div class="social-logo">
-                    <img src="images/instagram old logo.png" alt="Instagram">
-                </div>
-                <div class="social-info">
-                    <div class="social-name">instagram</div>
-                    <div class="social-handle">@metallicocoon</div>
-                </div>
-            </a>
-            
-            <!-- Twitter -->
-            <a href="https://twitter.com/metallicocoon" target="_blank" class="social-card">
-                <div class="social-logo">
-                    <img src="images/twitter.png" alt="Twitter">
-                </div>
-                <div class="social-info">
-                    <div class="social-name">twitter</div>
-                    <div class="social-handle">@metallicocoon</div>
-                </div>
-            </a>
-            
-            <!-- Letterboxd -->
-            <a href="https://letterboxd.com/1by/" target="_blank" class="social-card">
-                <div class="social-logo">
-                    <img src="images/letterboxd.png" alt="Letterboxd">
-                </div>
-                <div class="social-info">
-                    <div class="social-name">letterboxd</div>
-                    <div class="social-handle">1by</div>
-                </div>
-            </a>
-            
-            <!-- Last.fm -->
-            <a href="https://www.last.fm/user/shrimby" target="_blank" class="social-card">
-                <div class="social-logo">
-                    <img src="images/lastfm.png" alt="Last.fm">
-                </div>
-                <div class="social-info">
-                    <div class="social-name">last.fm</div>
-                    <div class="social-handle">shrimby</div>
-                </div>
-            </a>
-            
-            <!-- GOG.com -->
-            <a href="https://www.gog.com/u/woodyroot" target="_blank" class="social-card">
-                <div class="social-logo">
-                    <img src="images/gog.png" alt="GOG Logo">
-                </div>
-                <div class="social-info">
-                    <div class="social-name">gog</div>
-                    <div class="social-handle">woodyroot</div>
-                </div>
-            </a>
-            
-            <!-- Discord Server -->
-            <a href="https://discord.gg/t26TUdzZPK" target="_blank" class="social-card">
-                <div class="social-logo">
-                    <img src="images/plastic.jpg" alt="Discord Server">
-                </div>
-                <div class="social-info">
-                    <div class="social-name">plastic chair server</div>
-                    <div class="social-handle">discord.gg/t26TUdzZPK</div>
-                </div>
-            </a>
-        </section>
-        
-        <!-- Media Section -->
-        <section id="media" class="media-section">
-            <!-- Music Panel -->
-            <div class="media-panel">
-                <div class="panel-header">
-                    <div class="panel-icon">♫</div>
-                    <h2 class="panel-title">now playing</h2>
-                </div>
-                <div class="now-playing">home movies bonus cd-51</div>
-                <div class="track-name">Brendon's Camera</div>
-                <audio controls>
-                    <source src="music/Home Movies Bonus CD-51-Brendon's Camera.MP3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-            
-            <!-- Movie Panel -->
-            <div class="media-panel">
-                <div class="panel-header">
-                    <div class="panel-icon">🎞️</div>
-                    <h2 class="panel-title">today's film</h2>
-                </div>
-                <div class="movie-title">duck soup</div>
-                <div class="movie-year">1933</div>
-                <p style="color: rgba(245, 212, 140, 0.8); margin-bottom: 25px; line-height: 1.6; font-size: 1.1rem;">
-                    Marx Brothers anarchic comedy. War, diplomacy, and utter chaos in Freedonia.
-                </p>
-                <a href="https://drive.google.com/file/d/1kiloXXQf_wXbBByNwWrw4nJNYfWYjK0J/view" target="_blank" class="watch-link">
-                    watch ↗
-                </a>
-            </div>
-        </section>
-        
-        <!-- Message Terminal -->
-        <section id="message" class="terminal-section">
-            <div class="terminal-header">
-                <div class="terminal-dots">
-                    <div class="terminal-dot dot-red"></div>
-                    <div class="terminal-dot dot-yellow"></div>
-                    <div class="terminal-dot dot-green"></div>
-                </div>
-                <div class="terminal-title">anonymous_terminal.exe</div>
-            </div>
-            
-            <div class="arabic-note">
-                الرسالة مجهولة، اذا موضوعك يحتاج رد ارفق ايميلك بنفس الرسالة وشكرا
-            </div>
-            
-            <form id="message-form" action="https://formspree.io/f/xzznyrar" method="POST" class="message-form">
-                <textarea 
-                    name="message" 
-                    placeholder="> type your encrypted message here..." 
-                    required
-                    rows="6"
-                    class="message-textarea"
-                ></textarea>
-                
-                <input type="text" name="_gotcha" style="display:none;">
-                <input type="hidden" name="_next" value="#success">
-                
-                <button type="submit" class="submit-btn">
-                    [ transmit message ]
-                </button>
-            </form>
-            
-            <div id="success-message" class="success-message">
-                <h3 style="margin-bottom: 10px; color: var(--manhattan);">✓ TRANSMISSION SUCCESSFUL</h3>
-                <p style="color: rgba(245, 212, 140, 0.8);">Signal received. No traceback detected.</p>
-            </div>
-        </section>
-        
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-title">metallicocoon</div>
-            <div style="margin-bottom: 20px; color: rgba(245, 212, 140, 0.6);">
-                digital cocoon · plastic chair world
-            </div>
-            <div style="font-size: 0.8rem; color: rgba(245, 212, 140, 0.4); letter-spacing: 1px;">
-                connection established · terminal active · 2024
-            </div>
-        </footer>
+    <!-- Terminal Intro -->
+    <div class="terminal">
+        > metallicocoon terminal<br>
+        > plastic chair enthusiast<br>
+        > collecting moments<br>
     </div>
     
+    <!-- Social Grid -->
+    <div id="social" class="social-grid">
+        <a href="https://instagram.com/metallicocoon" target="_blank" class="social-item">
+            instagram<br>
+            <small>@metallicocoon</small>
+        </a>
+        <a href="https://twitter.com/metallicocoon" target="_blank" class="social-item">
+            twitter<br>
+            <small>@metallicocoon</small>
+        </a>
+        <a href="https://letterboxd.com/1by/" target="_blank" class="social-item">
+            letterboxd<br>
+            <small>1by</small>
+        </a>
+        <a href="https://www.last.fm/user/shrimby" target="_blank" class="social-item">
+            last.fm<br>
+            <small>shrimby</small>
+        </a>
+        <a href="https://www.gog.com/u/woodyroot" target="_blank" class="social-item">
+            gog<br>
+            <small>woodyroot</small>
+        </a>
+        <a href="https://discord.gg/t26TUdzZPK" target="_blank" class="social-item">
+            discord<br>
+            <small>plastic chair server</small>
+        </a>
+    </div>
+    
+    <!-- Media Section -->
+    <div id="media" class="media-grid">
+        <div class="media-card">
+            <h3>🎵 now playing</h3>
+            <p>home movies bonus cd-51</p>
+            <p><strong>Brendon's Camera</strong></p>
+            <audio controls style="width: 100%; margin-top: 10px;">
+                <source src="music/Home Movies Bonus CD-51-Brendon's Camera.MP3" type="audio/mpeg">
+            </audio>
+        </div>
+        
+        <div class="media-card">
+            <h3>🎬 today's film</h3>
+            <p><strong>duck soup (1933)</strong></p>
+            <p>Marx Brothers anarchic comedy</p>
+            <a href="https://drive.google.com/file/d/1kiloXXQf_wXbBByNwWrw4nJNYfWYjK0J/view" target="_blank" style="color: #f5d48c; margin-top: 10px; display: inline-block;">
+                watch ↗
+            </a>
+        </div>
+    </div>
+    
+    <!-- Message Form -->
+    <div id="message" class="message-box">
+        <h3>anonymous terminal</h3>
+        <p style="color: rgba(245, 212, 140, 0.7); margin-bottom: 15px;">send encrypted message</p>
+        <div style="background: rgba(74, 28, 22, 0.3); padding: 15px; margin-bottom: 15px; border-left: 2px solid #f5d48c;">
+            الرسالة مجهولة، اذا موضوعك يحتاج رد ارفق ايميلك بنفس الرسالة وشكرا
+        </div>
+        <form action="https://formspree.io/f/xzznyrar" method="POST">
+            <textarea name="message" rows="4" placeholder="type your message here..." required></textarea>
+            <input type="hidden" name="_next" value="#">
+            <button type="submit">send message</button>
+        </form>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <p>metallicocoon · plastic chair world</p>
+        <p style="font-size: 0.9rem; margin-top: 5px;">connection established</p>
+    </footer>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Image fallbacks
-            const images = document.querySelectorAll('img');
-            images.forEach(img => {
-                img.onerror = function() {
-                    const parent = this.parentElement;
-                    if (parent.classList.contains('social-logo')) {
-                        parent.innerHTML = `<div style="font-size: 1.5rem; color: var(--manhattan);">🔗</div>`;
-                    }
-                };
+        // Simple form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            const original = btn.textContent;
+            btn.textContent = 'sending...';
+            btn.disabled = true;
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this)
+            }).then(() => {
+                alert('Message sent!');
+                this.reset();
+                btn.textContent = original;
+                btn.disabled = false;
+            }).catch(() => {
+                alert('Error sending message');
+                btn.textContent = original;
+                btn.disabled = false;
             });
-            
-            // Form submission
-            const messageForm = document.getElementById('message-form');
-            const successMessage = document.getElementById('success-message');
-            
-            if (messageForm) {
-                messageForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    
-                    const submitBtn = this.querySelector('.submit-btn');
-                    const originalText = submitBtn.textContent;
-                    
-                    submitBtn.textContent = '[ transmitting... ]';
-                    submitBtn.disabled = true;
-                    
-                    try {
-                        const formData = new FormData(this);
-                        const response = await fetch(this.action, {
-                            method: 'POST',
-                            body: formData,
-                            headers: { 'Accept': 'application/json' }
-                        });
-                        
-                        if (response.ok) {
-                            successMessage.classList.add('show');
-                            messageForm.reset();
-                            
-                            setTimeout(() => {
-                                successMessage.classList.remove('show');
-                            }, 5000);
-                        } else {
-                            alert('Transmission failed. Please retry.');
-                        }
-                    } catch (error) {
-                        alert('Network error. Please check connection.');
-                    } finally {
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                    }
-                });
-            }
-            
-            // Smooth scrolling
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        window.scrollTo({
-                            top: target.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Set active nav link based on scroll
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
-            
-            function setActiveLink() {
-                let current = '';
-                const scrollPos = window.scrollY + 100;
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${current}`) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', setActiveLink);
-            setActiveLink();
         });
     </script>
 </body>
