@@ -83,10 +83,10 @@ h2{
   color:var(--lime);
 }
 
-/* SOCIAL - FIXED CLASS NAMES */
+/* SOCIAL - UPDATED FOR 3x2 ON DESKTOP, 2x3 ON MOBILE */
 .social-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  grid-template-columns:repeat(3, 1fr); /* Exactly 3 columns on desktop */
   gap:22px;
 }
 
@@ -181,8 +181,10 @@ footer{
 
 @media(max-width:700px){
   .hero{padding:24px}
+  
+  /* Change to 2 columns on mobile for 2x3 layout */
   .social-grid{
-    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    grid-template-columns:repeat(2, 1fr); /* Exactly 2 columns on mobile */
     gap:16px;
   }
 }
