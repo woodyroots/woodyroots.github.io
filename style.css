@@ -83,25 +83,26 @@ h2{
   color:var(--lime);
 }
 
-/* SOCIAL - UPDATED FOR 3x2 ON DESKTOP, 2x3 ON MOBILE */
+/* SOCIAL - 3 COLUMNS ON BOTH DESKTOP AND MOBILE */
 .social-grid{
   display:grid;
-  grid-template-columns:repeat(3, 1fr); /* Exactly 3 columns on desktop */
-  gap:22px;
+  grid-template-columns:repeat(3, 1fr);
+  gap:16px;
 }
 
 .social-item{
   text-decoration:none;
   color:inherit;
   background:var(--card);
-  padding:18px;
-  border-radius:22px;
+  padding:16px;
+  border-radius:20px;
   text-align:center;
   transition:.3s;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
+  min-height: 120px;
 }
 
 .social-item:hover{
@@ -110,21 +111,54 @@ h2{
 }
 
 .social-item img{
-  width:48px;
-  height:48px;
+  width:40px;
+  height:40px;
   object-fit:contain;
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
 
 .social-name{
   font-weight:bold;
-  margin-bottom:4px;
+  margin-bottom:2px;
+  font-size:0.9em;
 }
 
 .social-handle{
   display:block;
   opacity:.7;
-  font-size:0.9em;
+  font-size:0.8em;
+}
+
+/* Adjust for smaller screens but keep 3 columns */
+@media(max-width:600px){
+  .social-grid{
+    gap:12px;
+  }
+  
+  .social-item{
+    padding:12px 8px;
+    min-height: 100px;
+  }
+  
+  .social-item img{
+    width:32px;
+    height:32px;
+  }
+  
+  .social-name{
+    font-size:0.8em;
+  }
+  
+  .social-handle{
+    font-size:0.7em;
+  }
+}
+
+/* Only switch to 2 columns on very small screens */
+@media(max-width:400px){
+  .social-grid{
+    grid-template-columns:repeat(2, 1fr);
+  }
 }
 
 /* MEDIA */
@@ -188,3 +222,4 @@ footer{
     gap:16px;
   }
 }
+
