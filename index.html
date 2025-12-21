@@ -92,7 +92,7 @@ h2{
   color:var(--lime);
 }
 
-/* SOCIAL */
+/* SOCIAL - FIXED CLASS NAMES */
 .social-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
@@ -107,10 +107,15 @@ h2{
   border-radius:22px;
   text-align:center;
   transition:.3s;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
 }
 
 .social-item:hover{
   transform:translateY(-6px);
+  background:rgba(255,255,255,.15);
 }
 
 .social-item img{
@@ -120,9 +125,15 @@ h2{
   margin-bottom:10px;
 }
 
-.social-item small{
+.social-name{
+  font-weight:bold;
+  margin-bottom:4px;
+}
+
+.social-handle{
   display:block;
   opacity:.7;
+  font-size:0.9em;
 }
 
 /* MEDIA */
@@ -163,6 +174,11 @@ button{
   background:linear-gradient(90deg,var(--cyan),var(--lime));
   cursor:pointer;
   font-family:inherit;
+  font-weight:bold;
+}
+
+button:hover{
+  opacity:0.9;
 }
 
 /* FOOTER */
@@ -174,6 +190,10 @@ footer{
 
 @media(max-width:700px){
   .hero{padding:24px}
+  .social-grid{
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:16px;
+  }
 }
 </style>
 </head>
@@ -202,54 +222,42 @@ footer{
 <section id="social">
   <h2>SOCIAL</h2>
 
-  <div class="social-panel">
+  <div class="social-grid">
 
-    <a class="social-row" href="https://instagram.com/metallicocoon" target="_blank">
-      <img src="images/instagram old logo.png" alt="">
-      <div>
-        <div class="social-name">instagram</div>
-        <div class="social-handle">@metallicocoon</div>
-      </div>
+    <a class="social-item" href="https://instagram.com/metallicocoon" target="_blank">
+      <img src="images/instagram old logo.png" alt="Instagram">
+      <div class="social-name">instagram</div>
+      <div class="social-handle">@metallicocoon</div>
     </a>
 
-    <a class="social-row" href="https://twitter.com/metallicocoon" target="_blank">
-      <img src="images/twitter.png" alt="">
-      <div>
-        <div class="social-name">twitter</div>
-        <div class="social-handle">@metallicocoon</div>
-      </div>
+    <a class="social-item" href="https://twitter.com/metallicocoon" target="_blank">
+      <img src="images/twitter.png" alt="Twitter">
+      <div class="social-name">twitter</div>
+      <div class="social-handle">@metallicocoon</div>
     </a>
 
-    <a class="social-row" href="https://letterboxd.com/1by/" target="_blank">
-      <img src="images/letterboxd.png" alt="">
-      <div>
-        <div class="social-name">letterboxd</div>
-        <div class="social-handle">1by</div>
-      </div>
+    <a class="social-item" href="https://letterboxd.com/1by/" target="_blank">
+      <img src="images/letterboxd.png" alt="Letterboxd">
+      <div class="social-name">letterboxd</div>
+      <div class="social-handle">1by</div>
     </a>
 
-    <a class="social-row" href="https://www.last.fm/user/shrimby" target="_blank">
-      <img src="images/lastfm.png" alt="">
-      <div>
-        <div class="social-name">last.fm</div>
-        <div class="social-handle">shrimby</div>
-      </div>
+    <a class="social-item" href="https://www.last.fm/user/shrimby" target="_blank">
+      <img src="images/lastfm.png" alt="Last.fm">
+      <div class="social-name">last.fm</div>
+      <div class="social-handle">shrimby</div>
     </a>
 
-    <a class="social-row" href="https://www.gog.com/u/woodyroot" target="_blank">
-      <img src="images/gog.png" alt="">
-      <div>
-        <div class="social-name">gog</div>
-        <div class="social-handle">woodyroot</div>
-      </div>
+    <a class="social-item" href="https://www.gog.com/u/woodyroot" target="_blank">
+      <img src="images/gog.png" alt="GOG">
+      <div class="social-name">gog</div>
+      <div class="social-handle">woodyroot</div>
     </a>
 
-    <a class="social-row" href="https://discord.gg/t26TUdzZPK" target="_blank">
-      <img src="images/plastic.jpg.png" alt="">
-      <div>
-        <div class="social-name">discord</div>
-        <div class="social-handle">plastic chair</div>
-      </div>
+    <a class="social-item" href="https://discord.gg/t26TUdzZPK" target="_blank">
+      <img src="images/plastic.jpg.png" alt="Discord">
+      <div class="social-name">discord</div>
+      <div class="social-handle">plastic chair</div>
     </a>
 
   </div>
@@ -264,13 +272,14 @@ footer{
     <p>home movies bonus cd-51</p>
     <audio controls style="width:100%">
       <source src="music/Home Movies Bonus CD-51-Brendon's Camera.MP3" type="audio/mpeg">
+      Your browser does not support the audio element.
     </audio>
   </div>
 
   <div class="media-card">
     <strong>today's film</strong>
     <p>duck soup (1933)</p>
-    <a href="https://drive.google.com/file/d/1kiloXXQf_wXbBByNwWrw4nJNYfWYjK0J/view" target="_blank">watch ↗</a>
+    <a href="https://drive.google.com/file/d/1kiloXXQf_wXbBByNwWrw4nJNYfWYjK0J/view" target="_blank" style="color:var(--cyan);">watch ↗</a>
   </div>
 
 </div>
@@ -296,5 +305,3 @@ metallicocoon · plastic chair world
 </div>
 </body>
 </html>
-
-
