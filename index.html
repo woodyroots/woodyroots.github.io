@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>woody roots</title>
 <link rel="icon" href="images/lizard.png" type="image/png">
 
 <style>
 :root{
-  --cyan:#4fd1ff;
-  --lime:#c8ff6a;
-  --aqua:#7afcff;
-  --deep:#070b12;
-  --glass:rgba(255,255,255,.08);
+  --cyan:#6ee7ff;
+  --lime:#d9ff7a;
+  --ink:#050b12;
+  --card:rgba(255,255,255,.10);
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  font-family: "Courier New", monospace;
-  color:#e9f8ff;
-  background:
-    radial-gradient(1200px 600px at 10% 90%, rgba(200,255,106,.25), transparent 60%),
-    radial-gradient(900px 500px at 90% 10%, rgba(79,209,255,.25), transparent 60%),
-    linear-gradient(120deg, #0b2a3a, #0b3d2e, #132b52);
+  font-family:"Courier New", monospace;
+  color:#eaf9ff;
   min-height:100vh;
-}
 
-/* AURORA FLOW */
-body::before{
-  content:"";
-  position:fixed;
-  inset:-20%;
+  /* STILL AURORA BACKGROUND */
   background:
-    linear-gradient(60deg, transparent 30%, rgba(122,252,255,.35), transparent 60%),
-    linear-gradient(-40deg, transparent 25%, rgba(200,255,106,.35), transparent 55%);
-  filter: blur(40px);
-  animation: drift 18s linear infinite;
-  pointer-events:none;
+    radial-gradient(1200px 600px at 15% 85%, rgba(217,255,122,.35), transparent 60%),
+    radial-gradient(900px 500px at 85% 15%, rgba(110,231,255,.35), transparent 60%),
+    linear-gradient(120deg, #0b2a3a, #0b3d2e, #132b52);
+
+  background-attachment: fixed;
 }
 
-@keyframes drift{
-  from{transform:translateX(-10%) rotate(0deg)}
-  to{transform:translateX(10%) rotate(360deg)}
+/* VERY SUBTLE BREATH (optional, calm) */
+@keyframes breathe {
+  0%,100% { background-position: 0% 0%, 0% 0%, 0% 0%; }
+  50%     { background-position: 2% 1%, -2% -1%, 0% 0%; }
 }
 
-/* LAYOUT */
-.wrapper{max-width:1100px;margin:auto;padding:30px}
+body{
+  animation: breathe 40s ease-in-out infinite;
+}
 
+.wrapper{
+  max-width:1100px;
+  margin:auto;
+  padding:30px;
+}
+
+/* NAV */
 nav{
-  display:flex;justify-content:space-between;align-items:center;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   padding:18px 24px;
-  background:var(--glass);
-  backdrop-filter: blur(12px);
-  border-radius:18px;
+  background:var(--card);
+  border-radius:20px;
 }
 
 nav a{
-  color:var(--aqua);
+  color:var(--cyan);
   text-decoration:none;
   margin-left:18px;
   opacity:.85;
@@ -73,21 +73,21 @@ nav a:hover{opacity:1}
 .hero{
   margin:60px 0;
   padding:40px;
-  background:linear-gradient(135deg, rgba(79,209,255,.15), rgba(200,255,106,.12));
-  border-radius:28px;
-  backdrop-filter: blur(10px);
+  background:linear-gradient(135deg, rgba(110,231,255,.18), rgba(217,255,122,.12));
+  border-radius:30px;
 }
 
-.hero p{opacity:.85;line-height:1.8}
+.hero p{
+  line-height:1.8;
+  opacity:.9;
+}
 
 /* SECTIONS */
-section{
-  margin:60px 0;
-}
+section{margin:60px 0}
 
 h2{
   margin-bottom:20px;
-  font-size:1.2rem;
+  font-size:1.1rem;
   letter-spacing:2px;
   color:var(--lime);
 }
@@ -95,20 +95,35 @@ h2{
 /* SOCIAL */
 .social-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:22px;
 }
 
 .social-item{
-  padding:20px;
-  border-radius:22px;
-  background:var(--glass);
-  backdrop-filter: blur(14px);
   text-decoration:none;
   color:inherit;
+  background:var(--card);
+  padding:18px;
+  border-radius:22px;
+  text-align:center;
   transition:.3s;
 }
-.social-item:hover{transform:translateY(-6px)}
+
+.social-item:hover{
+  transform:translateY(-6px);
+}
+
+.social-item img{
+  width:48px;
+  height:48px;
+  object-fit:contain;
+  margin-bottom:10px;
+}
+
+.social-item small{
+  display:block;
+  opacity:.7;
+}
 
 /* MEDIA */
 .media-grid{
@@ -118,26 +133,25 @@ h2{
 }
 
 .media-card{
+  background:linear-gradient(135deg, rgba(110,231,255,.15), rgba(217,255,122,.10));
   padding:24px;
   border-radius:26px;
-  background:linear-gradient(135deg, rgba(122,252,255,.12), rgba(79,209,255,.08));
-  backdrop-filter: blur(16px);
 }
 
 /* MESSAGE */
 .message-box{
+  background:linear-gradient(135deg, rgba(217,255,122,.18), rgba(110,231,255,.12));
   padding:30px;
   border-radius:30px;
-  background:linear-gradient(135deg, rgba(200,255,106,.15), rgba(79,209,255,.1));
 }
 
 textarea{
   width:100%;
-  background:rgba(0,0,0,.3);
+  background:rgba(0,0,0,.35);
   border:none;
   border-radius:16px;
   padding:14px;
-  color:#e9f8ff;
+  color:#eaf9ff;
   margin-bottom:14px;
   font-family:inherit;
 }
@@ -151,6 +165,7 @@ button{
   font-family:inherit;
 }
 
+/* FOOTER */
 footer{
   text-align:center;
   opacity:.7;
@@ -177,24 +192,60 @@ footer{
 </nav>
 
 <div class="hero">
-  <p>> metallicocoon terminal<br>> plastic chair enthusiast<br>> collecting moments</p>
+  <p>
+    > metallicocoon terminal<br>
+    > plastic chair enthusiast<br>
+    > collecting moments
+  </p>
 </div>
 
 <section id="social">
-<h2>SOCIAL SIGNALS</h2>
+<h2>SOCIAL</h2>
 <div class="social-grid">
-  <a class="social-item" href="https://instagram.com/metallicocoon" target="_blank">instagram<br><small>@metallicocoon</small></a>
-  <a class="social-item" href="https://twitter.com/metallicocoon" target="_blank">twitter<br><small>@metallicocoon</small></a>
-  <a class="social-item" href="https://letterboxd.com/1by/" target="_blank">letterboxd<br><small>1by</small></a>
-  <a class="social-item" href="https://www.last.fm/user/shrimby" target="_blank">last.fm<br><small>shrimby</small></a>
-  <a class="social-item" href="https://www.gog.com/u/woodyroot" target="_blank">gog<br><small>woodyroot</small></a>
-  <a class="social-item" href="https://discord.gg/t26TUdzZPK" target="_blank">discord<br><small>plastic chair server</small></a>
+
+  <a class="social-item" href="https://instagram.com/metallicocoon" target="_blank">
+    <img src="images/instagram.png" alt="instagram">
+    instagram
+    <small>@metallicocoon</small>
+  </a>
+
+  <a class="social-item" href="https://twitter.com/metallicocoon" target="_blank">
+    <img src="images/twitter.png" alt="twitter">
+    twitter
+    <small>@metallicocoon</small>
+  </a>
+
+  <a class="social-item" href="https://letterboxd.com/1by/" target="_blank">
+    <img src="images/letterboxd.png" alt="letterboxd">
+    letterboxd
+    <small>1by</small>
+  </a>
+
+  <a class="social-item" href="https://www.last.fm/user/shrimby" target="_blank">
+    <img src="images/lastfm.png" alt="lastfm">
+    last.fm
+    <small>shrimby</small>
+  </a>
+
+  <a class="social-item" href="https://www.gog.com/u/woodyroot" target="_blank">
+    <img src="images/gog.png" alt="gog">
+    gog
+    <small>woodyroot</small>
+  </a>
+
+  <a class="social-item" href="https://discord.gg/t26TUdzZPK" target="_blank">
+    <img src="images/discord.png" alt="discord">
+    discord
+    <small>plastic chair</small>
+  </a>
+
 </div>
 </section>
 
 <section id="media">
-<h2>MEDIA STREAM</h2>
+<h2>MEDIA</h2>
 <div class="media-grid">
+
   <div class="media-card">
     <strong>now playing</strong>
     <p>home movies bonus cd-51</p>
@@ -202,21 +253,25 @@ footer{
       <source src="music/Home Movies Bonus CD-51-Brendon's Camera.MP3" type="audio/mpeg">
     </audio>
   </div>
+
   <div class="media-card">
     <strong>today's film</strong>
     <p>duck soup (1933)</p>
     <a href="https://drive.google.com/file/d/1kiloXXQf_wXbBByNwWrw4nJNYfWYjK0J/view" target="_blank">watch ↗</a>
   </div>
+
 </div>
 </section>
 
 <section id="message">
 <h2>ANONYMOUS TERMINAL</h2>
 <div class="message-box">
-<p style="opacity:.7">الرسالة مجهولة، اذا موضوعك يحتاج رد ارفق ايميلك بنفس الرسالة وشكرا</p>
+<p style="opacity:.7">
+الرسالة مجهولة، اذا موضوعك يحتاج رد ارفق ايميلك بنفس الرسالة وشكرا
+</p>
 <form action="https://formspree.io/f/xzznyrar" method="POST">
-<textarea name="message" rows="4" placeholder="type your message here..." required></textarea>
-<button type="submit">send message</button>
+  <textarea name="message" rows="4" placeholder="type your message here..." required></textarea>
+  <button type="submit">send message</button>
 </form>
 </div>
 </section>
