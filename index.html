@@ -46,7 +46,7 @@ body{
   padding:30px;
 }
 
-/* NAV */
+/* NAV - UPDATED WITH LOGO */
 nav{
   display:flex;
   justify-content:space-between;
@@ -56,6 +56,21 @@ nav{
   border-radius:20px;
 }
 
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+.logo{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+  filter: brightness(1.2) contrast(1.1);
+}
+
 nav a{
   color:var(--cyan);
   text-decoration:none;
@@ -63,11 +78,6 @@ nav a{
   opacity:.85;
 }
 nav a:hover{opacity:1}
-
-.brand{
-  font-weight:bold;
-  letter-spacing:2px;
-}
 
 /* HERO */
 .hero{
@@ -92,19 +102,19 @@ h2{
   color:var(--lime);
 }
 
-/* SOCIAL - FIXED CLASS NAMES */
+/* SOCIAL - SIMPLE 3 COLUMNS ON ALL DEVICES */
 .social-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:22px;
+  grid-template-columns:repeat(3, 1fr);
+  gap:20px;
 }
 
 .social-item{
   text-decoration:none;
   color:inherit;
   background:var(--card);
-  padding:18px;
-  border-radius:22px;
+  padding:20px;
+  border-radius:20px;
   text-align:center;
   transition:.3s;
   display:flex;
@@ -191,8 +201,31 @@ footer{
 @media(max-width:700px){
   .hero{padding:24px}
   .social-grid{
-    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-    gap:16px;
+    gap:12px;
+  }
+  .social-item{
+    padding:15px 10px;
+  }
+  .social-item img{
+    width:36px;
+    height:36px;
+  }
+}
+
+@media(max-width:500px){
+  .brand{
+    gap:8px;
+  }
+  .logo{
+    width:24px;
+    height:24px;
+  }
+  nav{
+    padding:14px 18px;
+  }
+  nav a{
+    margin-left:12px;
+    font-size:0.9em;
   }
 }
 </style>
@@ -202,7 +235,10 @@ footer{
 <div class="wrapper">
 
 <nav>
-  <div class="brand">woody roots</div>
+  <div class="brand">
+    <img src="images/lizard.png" alt="woody roots logo" class="logo">
+    <span>woody roots</span>
+  </div>
   <div>
     <a href="#social">social</a>
     <a href="#media">media</a>
@@ -255,7 +291,7 @@ footer{
     </a>
 
     <a class="social-item" href="https://discord.gg/t26TUdzZPK" target="_blank">
-      <img src="images/plastic.jpg" alt="Discord">
+      <img src="images/plastic.jpg.png" alt="Discord">
       <div class="social-name">discord</div>
       <div class="social-handle">plastic chair</div>
     </a>
@@ -305,4 +341,3 @@ metallicocoon · plastic chair world
 </div>
 </body>
 </html>
-
