@@ -86,44 +86,45 @@ h2{
   display:block;
 }
 
-.social-item{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  text-decoration:none;
-  color:var(--cyan);
-  padding:10px 12px;
-  border-radius:12px;
-  transition:.3s;
-  margin-bottom:2px;
+.social-item {
+  display: flex;
+  align-items: flex-start; /* align icon top with text */
+  gap:10px;
+  padding:6px 6px;
+  border-radius:10px;
 }
 
-.social-item:hover{
-  background:rgba(110, 231, 255, 0.15);
-}
-
-.social-item img{
-  width:20px;
-  height:20px;
-  object-fit:contain;
-  flex-shrink:0;
-  filter: brightness(0) saturate(100%) invert(86%) sepia(24%) saturate(746%) hue-rotate(154deg) brightness(104%) contrast(103%);
-}
-
-.social-text{
-  display:flex;
-  flex-direction:column;
-  line-height:1.2;
-}
-
-.social-name{
+/* Make the name neutral / not clickable */
+.social-name {
+  font-size:0.9em;
   font-weight:bold;
-  font-size:0.9em;
+  color:#eaf9ff; /* Default color */
 }
 
-.social-handle{
+/* Handle + arrow clickable */
+.social-handle {
   font-size:0.9em;
-  opacity:.9;
+  opacity:1;
+  color:var(--cyan);
+}
+
+.social-handle a {
+  color:var(--cyan);
+  text-decoration:none;
+}
+
+/* Icons neutral */
+.social-item img {
+  width:22px;
+  height:22px;
+  object-fit:contain;
+  filter: none;
+  flex-shrink:0;
+}
+
+/* Hover effect only on handle */
+.social-handle a:hover {
+  text-decoration:underline;
 }
 
 /* MEDIA */
@@ -191,3 +192,4 @@ footer{
     height:18px;
   }
 }
+
