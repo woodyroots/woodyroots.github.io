@@ -20,17 +20,19 @@ body{
   font-family:"Courier New", monospace;
   color:#eaf9ff;
   min-height:100vh;
+
   background:
     radial-gradient(1200px 600px at 15% 85%, rgba(217,255,122,.35), transparent 60%),
     radial-gradient(900px 500px at 85% 15%, rgba(110,231,255,.35), transparent 60%),
     linear-gradient(120deg, #0b2a3a, #0b3d2e, #132b52);
+
   background-attachment: fixed;
   animation: breathe 40s ease-in-out infinite;
 }
 
-@keyframes breathe{
-  0%,100%{background-position:0% 0%,0% 0%,0% 0%}
-  50%{background-position:2% 1%,-2% -1%,0% 0%}
+@keyframes breathe {
+  0%,100% { background-position: 0% 0%, 0% 0%, 0% 0%; }
+  50%     { background-position: 2% 1%, -2% -1%, 0% 0%; }
 }
 
 .wrapper{
@@ -49,6 +51,15 @@ nav{
   border-radius:20px;
 }
 
+nav a{
+  color:var(--cyan);
+  text-decoration:none;
+  margin-left:18px;
+  opacity:.85;
+}
+nav a:hover{opacity:1}
+nav a:visited{color:var(--cyan);} /* prevent purple visited color */
+
 .brand{
   display:flex;
   align-items:center;
@@ -62,14 +73,6 @@ nav{
   height:28px;
 }
 
-nav a{
-  color:var(--cyan);
-  text-decoration:none;
-  margin-left:18px;
-  opacity:.85;
-}
-nav a:hover{opacity:1}
-
 /* SECTIONS */
 section{margin:60px 0}
 
@@ -80,43 +83,55 @@ h2{
   color:var(--lime);
 }
 
-/* SOCIAL — SINGLE BOX, SINGLE COLUMN */
+/* SOCIAL — SINGLE BOX, TWO-LINE ROWS, HANDLE ONLY CLICKABLE */
 .social-grid{
   background:var(--card);
-  border-radius:26px;
-  padding:12px 16px;
+  border-radius:20px;
+  padding:10px 16px;
+  display:block;
 }
 
 .social-item{
   display:flex;
   align-items:center;
-  gap:10px;
-  text-decoration:none;
-  color:var(--cyan);
+  gap:12px;
   padding:8px 6px;
   border-radius:10px;
-  transition:.2s;
-}
-
-.social-item:hover{
-  background:rgba(255,255,255,.08);
+  margin-bottom:2px;
 }
 
 .social-item img{
-  width:22px;
-  height:22px;
+  width:20px;
+  height:20px;
   object-fit:contain;
-  filter: brightness(0) saturate(100%) invert(86%) sepia(24%) saturate(746%) hue-rotate(154deg);
+  flex-shrink:0;
+  filter:none; /* icons default colors */
 }
 
 .social-text{
-  font-size:.95rem;
-  white-space:nowrap;
+  display:flex;
+  flex-direction:column;
+  line-height:1.2;
 }
 
-.social-text span{
-  opacity:.75;
+.social-name{
+  font-weight:bold;
+  font-size:0.95rem;
+  color:#eaf9ff; /* Instagram name white */
 }
+
+.social-handle{
+  font-size:0.9rem;
+  color:var(--cyan); /* handle + arrow cyan */
+}
+
+/* Remove default link styles from social-item to prevent full row clickable */
+.social-handle a{
+  color:var(--cyan);
+  text-decoration:none;
+}
+.social-handle a:hover{opacity:.8;}
+.social-handle a:visited{color:var(--cyan);} /* no purple visited */
 
 /* MEDIA */
 .media-grid{
@@ -159,7 +174,9 @@ button{
   font-weight:bold;
 }
 
-button:hover{opacity:.9}
+button:hover{
+  opacity:0.9;
+}
 
 /* FOOTER */
 footer{
@@ -168,10 +185,8 @@ footer{
   padding:40px 0 10px;
 }
 
+/* MOBILE */
 @media(max-width:700px){
-  .social-item{
-    padding:6px 4px;
-  }
   .social-item img{
     width:18px;
     height:18px;
@@ -201,69 +216,51 @@ footer{
 
 <div class="social-grid">
 
-  <!-- Instagram -->
   <div class="social-item">
     <img src="images/instagram old logo.png" alt="Instagram">
     <div class="social-text">
       <div class="social-name">instagram</div>
-      <div class="social-handle">
-        <a href="https://instagram.com/metallicocoon" target="_blank">metallicocoon ↗</a>
-      </div>
+      <div class="social-handle"><a href="https://instagram.com/metallicocoon" target="_blank">metallicocoon ↗</a></div>
     </div>
   </div>
 
-  <!-- Twitter -->
   <div class="social-item">
     <img src="images/twitter.png" alt="Twitter">
     <div class="social-text">
       <div class="social-name">twitter</div>
-      <div class="social-handle">
-        <a href="https://twitter.com/metallicocoon" target="_blank">@metallicocoon ↗</a>
-      </div>
+      <div class="social-handle"><a href="https://twitter.com/metallicocoon" target="_blank">@metallicocoon ↗</a></div>
     </div>
   </div>
 
-  <!-- Letterboxd -->
   <div class="social-item">
     <img src="images/letterboxd.png" alt="Letterboxd">
     <div class="social-text">
       <div class="social-name">letterboxd</div>
-      <div class="social-handle">
-        <a href="https://letterboxd.com/1by/" target="_blank">1by ↗</a>
-      </div>
+      <div class="social-handle"><a href="https://letterboxd.com/1by/" target="_blank">1by ↗</a></div>
     </div>
   </div>
 
-  <!-- Last.fm -->
   <div class="social-item">
     <img src="images/lastfm.png" alt="Last.fm">
     <div class="social-text">
       <div class="social-name">last.fm</div>
-      <div class="social-handle">
-        <a href="https://www.last.fm/user/shrimby" target="_blank">shrimby ↗</a>
-      </div>
+      <div class="social-handle"><a href="https://www.last.fm/user/shrimby" target="_blank">shrimby ↗</a></div>
     </div>
   </div>
 
-  <!-- GOG -->
   <div class="social-item">
     <img src="images/gog.png" alt="GOG">
     <div class="social-text">
       <div class="social-name">gog</div>
-      <div class="social-handle">
-        <a href="https://www.gog.com/u/woodyroot" target="_blank">woodyroot ↗</a>
-      </div>
+      <div class="social-handle"><a href="https://www.gog.com/u/woodyroot" target="_blank">woodyroot ↗</a></div>
     </div>
   </div>
 
-  <!-- Discord -->
   <div class="social-item">
     <img src="images/plastic.jpg.png" alt="Discord">
     <div class="social-text">
       <div class="social-name">discord</div>
-      <div class="social-handle">
-        <a href="https://discord.gg/t26TUdzZPK" target="_blank">plastic chair ↗</a>
-      </div>
+      <div class="social-handle"><a href="https://discord.gg/t26TUdzZPK" target="_blank">plastic chair ↗</a></div>
     </div>
   </div>
 
@@ -311,6 +308,3 @@ metallicocoon · plastic chair world
 </div>
 </body>
 </html>
-
-
-
