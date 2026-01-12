@@ -83,14 +83,12 @@ h2{
   color:var(--lime);
 }
 
-/* SOCIAL - UPDATED TO ONE COLUMN WITH CYAN ARROW STYLE */
+/* SOCIAL - FIXED ICON SIZE - ONE COLUMN LIKE "WATCH ↗" */
 .social-grid {
-  display: grid;
-  grid-template-columns: 1fr; /* Single column */
-  gap: 2px; /* Very close together */
-  background: var(--card); /* Same box background */
+  background: var(--card);
   border-radius: 20px;
   padding: 10px;
+  display: block; /* Not grid anymore */
 }
 
 .social-item {
@@ -98,57 +96,41 @@ h2{
   align-items: center;
   gap: 12px;
   text-decoration: none;
-  color: var(--cyan); /* Same cyan as "watch" link */
+  color: var(--cyan);
   padding: 14px 16px;
   border-radius: 12px;
   transition: 0.3s;
+  margin-bottom: 2px; /* Very close together */
 }
 
 .social-item:hover {
-  background: rgba(110, 231, 255, 0.15); /* Same hover effect */
+  background: rgba(110, 231, 255, 0.15);
 }
 
 .social-item img {
-  width: 24px;
-  height: 24px;
+  width: 20px; /* SMALLER FIXED SIZE */
+  height: 20px; /* SMALLER FIXED SIZE */
   object-fit: contain;
-  margin-bottom: 0;
-  filter: brightness(0) saturate(100%) invert(86%) sepia(24%) saturate(746%) hue-rotate(154deg) brightness(104%) contrast(103%); /* Makes images cyan */
+  flex-shrink: 0; /* Prevent stretching */
+  filter: brightness(0) saturate(100%) invert(86%) sepia(24%) saturate(746%) hue-rotate(154deg) brightness(104%) contrast(103%);
 }
 
 .social-name {
   font-weight: bold;
-  margin-bottom: 0;
   font-size: 0.9em;
+  white-space: nowrap; /* Keep on one line */
+}
+
+.social-name::after {
+  content: " ↗";
+  opacity: 0.8;
 }
 
 .social-handle {
   display: inline;
   opacity: 0.9;
   font-size: 0.9em;
-}
-
-/* Add arrow after each platform name */
-.social-name::after {
-  content: " ↗";
-  opacity: 0.8;
-}
-
-/* For mobile - keep single column but adjust spacing */
-@media(max-width:700px){
-  .social-grid {
-    gap: 1px;
-    padding: 8px;
-  }
-  
-  .social-item {
-    padding: 12px 14px;
-  }
-  
-  .social-item img {
-    width: 20px;
-    height: 20px;
-  }
+  margin-left: 4px;
 }
 
 /* MEDIA */
@@ -205,4 +187,13 @@ footer{
 
 @media(max-width:700px){
   .hero{padding:24px}
+  
+  .social-item {
+    padding: 10px 12px;
+  }
+  
+  .social-item img {
+    width: 18px;
+    height: 18px;
+  }
 }
