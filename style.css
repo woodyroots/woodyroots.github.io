@@ -118,14 +118,39 @@ h2{
   width:22px;
   height:22px;
   object-fit:contain;
-  filter: none;
+  filter: none; /* icons neutral */
   flex-shrink:0;
 }
 
-/* Hover effect only on handle */
+.social-text {
+  display:flex;
+  flex-direction:column;
+  line-height:1.2;
+}
+
+/* Platform name (top line) */
+.social-name {
+  font-size:0.9em;
+  font-weight:bold;
+  color:#eaf9ff; /* white */
+}
+
+/* Handle + arrow (bottom line) */
+.social-handle {
+  font-size:0.9em;
+  margin-top:2px;
+}
+
+/* Links inside handle */
+.social-handle a {
+  color:#6ee7ff !important; /* cyan */
+  text-decoration:none;
+}
+
 .social-handle a:hover {
   text-decoration:underline;
 }
+
 
 /* MEDIA */
 .media-grid{
@@ -192,4 +217,5 @@ footer{
     height:18px;
   }
 }
+
 
