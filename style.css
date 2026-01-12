@@ -83,81 +83,71 @@ h2{
   color:var(--lime);
 }
 
-/* SOCIAL - 3 COLUMNS ON BOTH DESKTOP AND MOBILE */
-.social-grid{
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:16px;
+/* SOCIAL - UPDATED TO ONE COLUMN WITH CYAN ARROW STYLE */
+.social-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column */
+  gap: 2px; /* Very close together */
+  background: var(--card); /* Same box background */
+  border-radius: 20px;
+  padding: 10px;
 }
 
-.social-item{
-  text-decoration:none;
-  color:inherit;
-  background:var(--card);
-  padding:16px;
-  border-radius:20px;
-  text-align:center;
-  transition:.3s;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  min-height: 120px;
+.social-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--cyan); /* Same cyan as "watch" link */
+  padding: 14px 16px;
+  border-radius: 12px;
+  transition: 0.3s;
 }
 
-.social-item:hover{
-  transform:translateY(-6px);
-  background:rgba(255,255,255,.15);
+.social-item:hover {
+  background: rgba(110, 231, 255, 0.15); /* Same hover effect */
 }
 
-.social-item img{
-  width:40px;
-  height:40px;
-  object-fit:contain;
-  margin-bottom:8px;
+.social-item img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  margin-bottom: 0;
+  filter: brightness(0) saturate(100%) invert(86%) sepia(24%) saturate(746%) hue-rotate(154deg) brightness(104%) contrast(103%); /* Makes images cyan */
 }
 
-.social-name{
-  font-weight:bold;
-  margin-bottom:2px;
-  font-size:0.9em;
+.social-name {
+  font-weight: bold;
+  margin-bottom: 0;
+  font-size: 0.9em;
 }
 
-.social-handle{
-  display:block;
-  opacity:.7;
-  font-size:0.8em;
+.social-handle {
+  display: inline;
+  opacity: 0.9;
+  font-size: 0.9em;
 }
 
-/* Adjust for smaller screens but keep 3 columns */
-@media(max-width:600px){
-  .social-grid{
-    gap:12px;
+/* Add arrow after each platform name */
+.social-name::after {
+  content: " ↗";
+  opacity: 0.8;
+}
+
+/* For mobile - keep single column but adjust spacing */
+@media(max-width:700px){
+  .social-grid {
+    gap: 1px;
+    padding: 8px;
   }
   
-  .social-item{
-    padding:12px 8px;
-    min-height: 100px;
+  .social-item {
+    padding: 12px 14px;
   }
   
-  .social-item img{
-    width:32px;
-    height:32px;
-  }
-  
-  .social-name{
-    font-size:0.8em;
-  }
-  
-  .social-handle{
-    font-size:0.7em;
-  }
-}
-
-/* Only switch to 2 columns on very small screens */
-@media(max-width:400px){
-  .social-grid{
-    grid-template-columns:repeat(2, 1fr);
+  .social-item img {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -215,11 +205,4 @@ footer{
 
 @media(max-width:700px){
   .hero{padding:24px}
-  
-  /* Change to 2 columns on mobile for 2x3 layout */
-  .social-grid{
-    grid-template-columns:repeat(2, 1fr); /* Exactly 2 columns on mobile */
-    gap:16px;
-  }
 }
-
